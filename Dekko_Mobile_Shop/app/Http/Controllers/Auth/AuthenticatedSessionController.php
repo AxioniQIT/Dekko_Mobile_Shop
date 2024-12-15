@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\User;
+
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
@@ -24,11 +26,35 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $request->authenticate();
 
-        $request->session()->regenerate();
+        if ($request->email) {
+            $user = User::where('email', $request->email)->first();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+            if (!$user) {
+                // Handle the case where the user is not found
+                return redirect()->back()->withErrors(['Invalid email or password']);
+            }
+
+            if ($user->role === 'Admin') {
+                $request->authenticate();
+                $request->session()->regenerate();
+                Auth::login($user);
+                return redirect()->intended(route('admin.dashboard'))->with('success', 'Login Successful');
+            } elseif ($user->role === 'Superadmin') {
+                $request->authenticate();
+                $request->session()->regenerate();
+                Auth::login($user);
+                return redirect()->intended(route('superadmin.dashboard'))->with('success', 'Login Successful');
+            } elseif ($user->role === 'Employee') {
+                $request->authenticate();
+                $request->session()->regenerate();
+                Auth::login($user);
+                return redirect()->intended(route('employee.dashboard'))->with('success', 'Login Successful');
+            } else {
+                // Handle the case where the user's role is not recognized
+                return redirect()->back()->withErrors(['Invalid user role']);
+            }
+        }
     }
 
     /**
