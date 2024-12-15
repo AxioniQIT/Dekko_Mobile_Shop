@@ -32,5 +32,6 @@
                 {{ $slot }}
             </main>
         </div>
+        {{-- hello Nimanthaka --}}
     </body>
 </html>
