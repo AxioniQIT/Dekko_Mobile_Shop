@@ -42,7 +42,7 @@
                 </div>
             </nav>
             <div class="container mt-4">
-                <h2>Welcome, Super Admin!</h2>
+                <h2>Welcome, Admin!</h2>
                 <div class="row">
                     <div class="col-md-3 col-sm-6 mb-3">
                         <div class="card text-center">
