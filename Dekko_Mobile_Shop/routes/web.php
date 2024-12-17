@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Employee\ProfileController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\SuperAdmin\SuperAdminController;
 use App\Http\Controllers\Employee\EmployeeController;
