@@ -9,6 +9,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
@@ -26,35 +27,34 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-
         if ($request->email) {
             $user = User::where('email', $request->email)->first();
 
-            if (!$user) {
-                // Handle the case where the user is not found
+            if (!$user || !Hash::check($request->password, $user->password_hash)) {
+                // Handle invalid email or password
                 return redirect()->back()->withErrors(['Invalid email or password']);
             }
 
+            // Authenticate and regenerate session
+            Auth::login($user);
+            $request->session()->regenerate();
+
+            // Redirect based on role
             if ($user->role === 'Admin') {
-                $request->authenticate();
-                $request->session()->regenerate();
-                Auth::login($user);
                 return redirect()->intended(route('admin.dashboard'))->with('success', 'Login Successful');
             } elseif ($user->role === 'Superadmin') {
-                $request->authenticate();
-                $request->session()->regenerate();
-                Auth::login($user);
                 return redirect()->intended(route('superadmin.dashboard'))->with('success', 'Login Successful');
             } elseif ($user->role === 'Employee') {
-                $request->authenticate();
-                $request->session()->regenerate();
-                Auth::login($user);
                 return redirect()->intended(route('employee.dashboard'))->with('success', 'Login Successful');
             } else {
-                // Handle the case where the user's role is not recognized
+                // Handle invalid role
                 return redirect()->back()->withErrors(['Invalid user role']);
             }
         }
+
+        // Default fallback
+        return redirect()->back()->withErrors(['Invalid email or password']);
+
     }
 
     /**
