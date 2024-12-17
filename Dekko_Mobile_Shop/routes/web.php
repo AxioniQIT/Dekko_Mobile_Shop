@@ -36,17 +36,17 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-//  // *** GROUP ROUTES FOR ADMIN ***//
+    //  // *** GROUP ROUTES FOR ADMIN ***//
 //  Route::prefix('Admin')->as('admin.')->group(function () {
 //     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
 // });
 
-// // *** GROUP ROUTES FOR SUPERADMIN ***//
+    // // *** GROUP ROUTES FOR SUPERADMIN ***//
 // Route::prefix('Superadmin')->as('superadmin.')->group(function () {
 //     Route::get('/dashboard', [SuperadminController::class, 'index'])->name('dashboard');
 // });
 
-// // *** GROUP ROUTES FOR EMPLOYEE ***//
+    // // *** GROUP ROUTES FOR EMPLOYEE ***//
 // Route::prefix('Employee')->as('employee.')->group(function () {
 //     Route::get('/dashboard', [EmployeeController::class, 'index'])->name('dashboard');
 // });
