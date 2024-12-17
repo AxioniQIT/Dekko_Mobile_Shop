@@ -36,6 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+
  // *** GROUP ROUTES FOR ADMIN ***//
  Route::prefix('Admin')->as('admin.')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
@@ -50,6 +51,8 @@ Route::prefix('Superadmin')->as('superadmin.')->group(function () {
 Route::prefix('Employee')->as('employee.')->group(function () {
     Route::get('/dashboard', [EmployeeController::class, 'index'])->name('dashboard');
 });
+
+
 });
 
 require __DIR__ . '/auth.php';
