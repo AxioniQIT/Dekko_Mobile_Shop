@@ -14,7 +14,7 @@ class OrderHistoryController extends Controller
      */
     public function index()
     {
-        return view('admin.orderhistory');
+        return view('admin.orderhistory.vieworderhistory');
     }
 
     /**
