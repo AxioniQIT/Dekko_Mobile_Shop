@@ -2,8 +2,14 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\SparePartsController;
+use App\Http\Controllers\Admin\RepairController;
+
+
 use App\Http\Controllers\SuperAdmin\SuperAdminController;
 use App\Http\Controllers\Employee\EmployeeController;
+use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -29,6 +35,17 @@ Route::middleware('auth')->group(function () {
  // *** GROUP ROUTES FOR ADMIN ***//
 Route::prefix('Admin')->as('admin.')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+
+
+    Route::get('/product', [ProductController::class, 'index'])->name('product');
+
+
+    Route::get('/spareparts', [SparePartsController::class, 'index'])->name('spareparts');
+
+
+    Route::get('/repairs', [RepairController::class, 'index'])->name('repairs');
+
+
 });
 
 // *** GROUP ROUTES FOR SUPERADMIN ***//
@@ -40,6 +57,7 @@ Route::prefix('Superadmin')->as('superadmin.')->group(function () {
 Route::prefix('Employee')->as('employee.')->group(function () {
     Route::get('/dashboard', [EmployeeController::class, 'index'])->name('dashboard');
 });
+
 
 
 });
