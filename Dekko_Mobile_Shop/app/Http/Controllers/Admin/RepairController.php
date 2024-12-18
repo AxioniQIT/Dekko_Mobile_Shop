@@ -14,7 +14,7 @@ class RepairController extends Controller
      */
     public function index()
     {
-        return view('admin.repairs');
+        return view('admin.repairs.viewrepairs');
     }
 
     /**
