@@ -22,9 +22,9 @@
             <a href="{{ route('admin.product') }}">Products</a>
             <a href="{{ route('admin.spareparts') }}">Spare Parts</a>
             <a href="{{ route('admin.repairs') }}">Repairs</a>
-            <a href="#">Employees</a>
-            <a href="#">Customers</a>
-            <a href="#">Order History</a>
+            <a href="{{ route('admin.employees') }}">Employees</a>
+            <a href="{{ route('admin.customers') }}">Customers</a>
+            <a href="{{ route('admin.orderhistory') }}">Order History</a>
             <div class="sidebar-footer">
                 <p>© 2024 Mobile Shop</p>
             </div>
