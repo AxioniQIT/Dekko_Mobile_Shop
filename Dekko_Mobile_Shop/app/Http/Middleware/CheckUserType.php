@@ -15,7 +15,9 @@ class CheckUserType
      */
     public function handle(Request $request, Closure $next): Response
     {
-        dd($request->user()->role);
+        if (!$request->user()) {
+            return redirect()->route('login');
+        }
 
         // check logged user type and redirect to the specific page
         if ($request->user()->role === 'Admin') {
