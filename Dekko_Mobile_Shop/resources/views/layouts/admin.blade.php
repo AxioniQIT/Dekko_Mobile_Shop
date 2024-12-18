@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $title ?? 'Admin Dashboard' }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/Admin/dashboard.css') }}">
-   <style>
+    <style>
 
     </style>
 </head>
+
 <body>
     <div class="d-flex">
         <!-- Sidebar -->
@@ -37,12 +39,15 @@
                     <button class="toggle-btn me-3" id="sidebarToggle">☰</button>
                     <span class="navbar-brand mb-0 h1">Dashboard</span>
                     <div class="ms-auto">
-                        <a href="{{ route('logout') }}" class="btn btn-outline-danger">Logout</a>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="btn btn-outline-danger">Logout</button>
+                        </form>
                     </div>
                 </div>
             </nav>
             <div class="container mt-4">
-                  @yield('content')
+                @yield('content')
             </div>
         </div>
     </div>
@@ -53,4 +58,5 @@
 
 
 </body>
+
 </html>
