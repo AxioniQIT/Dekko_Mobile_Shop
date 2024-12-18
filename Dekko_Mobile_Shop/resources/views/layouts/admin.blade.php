@@ -18,13 +18,13 @@
                 <h4>Admin</h4>
                 <p class="text-muted">Manage the entire system</p>
             </div>
-            <a href="#">Dashboard</a>
-            <a href="#">Users</a>
-            <a href="#">Products</a>
-            <a href="#">Repairs</a>
-            <a href="#">Sales</a>
-            <a href="#">System Logs</a>
-            <a href="#">Settings</a>
+            <a href="{{ route('admin.dashboard') }}">Dashboard</a>
+            <a href="{{ route('admin.product') }}">Products</a>
+            <a href="{{ route('admin.spareparts') }}">Spare Parts</a>
+            <a href="{{ route('admin.repairs') }}">Repairs</a>
+            <a href="#">Employees</a>
+            <a href="#">Customers</a>
+            <a href="#">Order History</a>
             <div class="sidebar-footer">
                 <p>© 2024 Mobile Shop</p>
             </div>
