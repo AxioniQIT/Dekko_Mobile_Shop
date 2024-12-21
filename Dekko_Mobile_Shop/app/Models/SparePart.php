@@ -42,4 +42,9 @@ class SparePart extends Model
     {
         $this->decrement('stock_quantity', $quantity);
     }
+
+    public function brands()
+    {
+        return $this->belongsToMany(Brand::class, 'brand_spare_part', 'spare_part_id', 'brand_id');
+    }
 }
