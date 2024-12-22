@@ -40,6 +40,13 @@
             <a href="{{ route('admin.product') }}" class="d-flex align-items-center">
                 <i class="fas fa-box-open me-2 text-success"></i> Products
             </a>
+
+            <a href="{{ route('admin.brand') }}" class="d-flex align-items-center">
+                <i class="fas fa-tags me-2 text-info"></i> Brands
+            </a>
+
+
+
             <a href="{{ route('admin.spareparts') }}" class="d-flex align-items-center">
                 <i class="fas fa-cogs me-2 text-warning"></i> Spare Parts
             </a>
