@@ -15,7 +15,7 @@ class CreateBrandSparePartTable extends Migration
             $table->bigInteger('spare_part_id')->unsigned();
             $table->primary(['brand_id', 'spare_part_id']);
 
-            $table->foreign('brand_id')->references('model_category_id')->on('brands')->onDelete('cascade');
+            $table->foreign('brand_id')->references('brand_id')->on('brands')->onDelete('cascade');
             $table->foreign('spare_part_id')->references('spare_part_id')->on('spare_parts')->onDelete('cascade');
         });
     }
@@ -25,4 +25,3 @@ class CreateBrandSparePartTable extends Migration
         Schema::dropIfExists('brand_spare_part');
     }
 }
-
