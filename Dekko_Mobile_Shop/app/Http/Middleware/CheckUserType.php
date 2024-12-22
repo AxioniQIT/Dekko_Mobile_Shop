@@ -16,7 +16,7 @@ class CheckUserType
     public function handle(Request $request, Closure $next): Response
     {
         if (!$request->user()) {
-            return redirect()->route('login');
+            return redirect('/');
         }
 
         // check logged user type and redirect to the specific page

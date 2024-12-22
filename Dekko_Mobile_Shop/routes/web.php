@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ProductController;
@@ -8,16 +9,16 @@ use App\Http\Controllers\Admin\RepairController;
 use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\OrderHistoryController;
-
-
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\SuperAdmin\SuperAdminController;
-// use App\Http\Controllers\Employee\EmployeeController;
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+
+Route::get('/', function () {
+    return redirect('/login');
+});
+
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
@@ -48,6 +49,16 @@ Route::middleware('auth')->group(function () {
 
         //Admin -> Spare Parts Routes
         Route::get('/spareparts', [SparePartsController::class, 'index'])->name('spareparts');
+        Route::get('/spareparts/create', [SparePartsController::class, 'create'])->name('spareparts.create');
+        Route::post('/spareparts', [SparePartsController::class, 'store'])->name('spareparts.store');
+        Route::get('/spareparts/{sparePart}/edit', [SparePartsController::class, 'edit'])->name('spareparts.edit');
+        Route::patch('/spareparts/{sparePart}', [SparePartsController::class, 'update'])->name('spareparts.update');
+        Route::delete('/spareparts/{sparePart}', [SparePartsController::class, 'destroy'])->name('spareparts.destroy');
+
+        // Find Brand Models
+        Route::get('/api/get-models/{brand}', [BrandController::class, 'getModels'])->name('getModels');
+
+
 
 
 

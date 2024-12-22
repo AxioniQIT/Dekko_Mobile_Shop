@@ -3,24 +3,26 @@ $(document).on(
     'a[data-ajax-popup="true"], button[data-ajax-popup="true"], div[data-ajax-popup="true"]',
     function () {
         var title = $(this).data("title");
-        var size =
-            $(this).attr("data-size") == "" ? "md" : $(this).attr("data-size");
+        var size = $(this).attr("data-size") || "md";
         var url = $(this).data("url");
-        $("#commanModel .modal-title").html(title);
-        $("#commanModel .modal-dialog")
-            .removeClass("modal-lg modal-md modal-sm")
-            .addClass("modal-" + size);
+
+        // Show modal and set properties
+        var $modal = $("#commanModel");
+        $modal.find(".modal-title").html(title);
+        $modal
+            .find(".modal-dialog")
+            .attr("class", `modal-dialog modal-${size}`);
+        $modal.attr("aria-hidden", "false").css("display", "block");
+
+        // Load modal content
         $.ajax({
             url: url,
             success: function (data) {
-                $("#commanModel .modal-body").html(data);
-                $("#commanModel").modal("show");
+                $modal.find(".modal-body").html(data);
+                $modal.modal("show");
 
-                $("#theme_id").trigger("change");
-                $(
-                    "#enable_product_variant, #variant_tag, #maincategory, #category_id"
-                ).trigger("change");
-                $(".code").trigger("click");
+                // Focus handling
+                $modal.find("button, input, select, textarea").first().focus();
 
                 comman_function();
             },
@@ -30,6 +32,11 @@ $(document).on(
         });
     }
 );
+
+// Reset aria-hidden and modal state when hidden
+$("#commanModel").on("hidden.bs.modal", function () {
+    $(this).attr("aria-hidden", "true").css("display", "none");
+});
 
 $(document).on(
     "click",

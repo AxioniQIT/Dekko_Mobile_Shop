@@ -48,7 +48,7 @@ class AuthenticatedSessionController extends Controller
                 return redirect()->intended(route('employee.dashboard'))->with('success', 'Login Successful');
             } else {
                 // Handle invalid role
-                return redirect()->back()->withErrors(['Invalid user role']);
+                return redirect()->intended('/');
             }
         }
 
@@ -62,7 +62,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
-        Auth::guard('web')->logout();
+        Auth::guard()->logout();
 
         $request->session()->invalidate();
 
