@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
 
     <link rel="stylesheet" href="{{ asset('css/Admin/style.css') }}" id="main-style-link">
@@ -35,7 +36,41 @@
             <a href="{{ route('admin.dashboard') }}">Dashboard</a>
             <a href="{{ route('admin.product') }}">Products</a>
             <a href="{{ route('admin.spareparts') }}">Spare Parts</a>
-            <a href="{{ route('admin.repairs') }}">Repairs</a>
+            <div class="repairs-menu">
+                <a href="#repairsMenu" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="repairsMenu" class="menu-link d-flex align-items-center">
+                    <i class="fas fa-tools me-2 text-danger"></i> Repairs
+                    <span class="ms-auto"><i class="fas fa-chevron-down"></i></span>
+                </a>
+                <div class="collapse repairs-submenu" id="repairsMenu">
+
+                    <a href="{{ route('admin.repairs.addrepair') }}" class="submenu-link d-flex align-items-center">
+                        <i class="fas fa-plus-circle me-2 text-success"></i> Add Repairs
+                    </a>
+
+                    <a href="{{ route('admin.repairs.management') }}" class="submenu-link d-flex align-items-center">
+                        <i class="fas fa-cogs me-2 text-primary"></i> Repairs Management
+                    </a>
+
+                    <a href="{{ route('admin.repairs.repairUpdates') }}" class="submenu-link d-flex align-items-center">
+                        <i class="fas fa-sync-alt me-2 text-warning"></i> Repairs Updates
+                    </a>
+
+
+
+                    <a href="{{ route('admin.repairs', ['status' => 'in-progress']) }}" class="submenu-link d-flex align-items-center">
+                        <i class="fas fa-spinner me-2 text-info"></i> In Progress
+                    </a>
+                    <a href="{{ route('admin.repairs', ['status' => 'pending']) }}" class="submenu-link d-flex align-items-center">
+                        <i class="fas fa-hourglass-half me-2 text-warning"></i> Pending
+                    </a>
+                    <a href="{{ route('admin.repairs', ['status' => 'completed']) }}" class="submenu-link d-flex align-items-center">
+                        <i class="fas fa-check-circle me-2 text-success"></i> Completed
+                    </a>
+                    <a href="{{ route('admin.repairs', ['status' => 'cancelled']) }}" class="submenu-link d-flex align-items-center">
+                        <i class="fas fa-times-circle me-2 text-danger"></i> Cancelled
+                    </a>
+                </div>
+            </div>
             <a href="{{ route('admin.employees') }}">Employees</a>
             <a href="{{ route('admin.customers') }}">Customers</a>
             <a href="{{ route('admin.orderhistory') }}">Order History</a>

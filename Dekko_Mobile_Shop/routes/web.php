@@ -62,8 +62,13 @@ Route::middleware('auth')->group(function () {
 
 
 
-        //Admin -> Repairs Routes
-        Route::get('/repairs', [RepairController::class, 'index'])->name('repairs');
+       //Admin -> Repairs Routes
+       Route::get('/repairs', [RepairController::class, 'index'])->name('repairs');
+       Route::get('/repairs_Management', [RepairController::class, 'repairsmanagement'])->name('repairs.management');
+       Route::get('/repairs_add', [RepairController::class, 'addRepair'])->name('repairs.addrepair');
+       Route::get('/repairUpdates', [RepairController::class, 'repairUpdates'])->name('repairs.repairUpdates');
+
+
 
 
 
