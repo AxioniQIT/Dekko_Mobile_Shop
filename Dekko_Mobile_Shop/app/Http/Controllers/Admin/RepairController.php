@@ -17,6 +17,23 @@ class RepairController extends Controller
         return view('admin.repairs.viewrepairs');
     }
 
+
+    public function repairsmanagement()
+    {
+        return view('admin.repairs.repairs_management');
+    }
+
+    public function addRepair()
+    {
+        return view('admin.repairs.add_repair');
+    }
+
+    public function repairUpdates()
+    {
+        return view('admin.repairs.repair_updates');
+    }
+
+
     /**
      * Show the form for creating a new resource.
      */
