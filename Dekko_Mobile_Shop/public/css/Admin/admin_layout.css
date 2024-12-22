@@ -1,0 +1,170 @@
+body {
+    background-color: #f4f7fa;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 250px;
+    background: #2c3e50;
+    color: #ecf0f1;
+    height: 100vh;
+    position: fixed;
+    transition: transform 0.3s ease-in-out, height 0.3s ease-in-out;
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+.sidebar.active {
+    transform: translateX(-250px);
+    height: 100%;
+}
+.sidebar:hover {
+    height: 100%;
+}
+.sidebar-header {
+    background-color: #34495e;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 2px solid #1abc9c;
+}
+.sidebar-header h4 {
+    margin: 0;
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #ffffff;
+}
+.sidebar-header p {
+    color: #bdc3c7;
+}
+.sidebar a {
+    display: block;
+    color: #bdc3c7;
+    padding: 15px 25px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background 0.3s, color 0.3s, border-left 0.3s;
+}
+.sidebar a:hover {
+    background: #1abc9c;
+    color: #fff;
+    border-left: 5px solid #16a085;
+}
+.sidebar-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 15px;
+    background-color: #34495e;
+    color: #bdc3c7;
+    text-align: center;
+}
+
+/* Main content area */
+.main-content {
+    margin-left: 250px;
+    padding: 20px;
+    transition: margin-left 0.3s ease-in-out;
+}
+.main-content.active {
+    margin-left: 0;
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: #fff;
+    border-bottom: 1px solid #dee2e6;
+}
+.navbar .navbar-brand {
+    color: #2c3e50;
+    font-weight: 600;
+}
+.navbar .btn-outline-danger {
+    font-weight: 600;
+    border-radius: 5px;
+}
+
+/* Card Styles */
+.card {
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+.card .card-body {
+    padding: 20px;
+}
+.card .card-body h5 {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+.card .card-body p {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-250px);
+    }
+    .sidebar.active {
+        transform: translateX(0);
+    }
+    .main-content {
+        margin-left: 0;
+    }
+    .main-content.active {
+        margin-left: 250px;
+    }
+    .toggle-btn {
+        font-size: 30px;
+        color: #1abc9c;
+    }
+}
+
+/* Animated Button */
+.toggle-btn {
+    font-size: 28px;
+    color: #1abc9c;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+}
+
+/* Repairs Menu Enhancements */
+.repairs-menu a {
+    font-size: 1.1rem;
+    padding: 12px 20px;
+}
+.repairs-menu a:hover {
+    background: #16a085;
+}
+
+/* Repair submenu */
+.repairs-submenu {
+    padding-left: 20px;
+}
+
+.submenu-link {
+    font-size: 1rem;
+    color: #bdc3c7;
+    padding: 10px 20px;
+    text-decoration: none;
+    transition: background 0.3s, color 0.3s;
+}
+
+.submenu-link:hover {
+    background-color: #1abc9c;
+    color: white;
+}
+
+/* Repair Icon Styles */
+.repair-icons {
+    font-size: 18px;
+    margin-right: 8px;
+}
