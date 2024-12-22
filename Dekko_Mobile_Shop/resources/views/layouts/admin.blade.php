@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="{{ asset('css/Admin/style.css') }}" id="main-style-link">
     <link rel="stylesheet" href="{{ asset('css/Admin/dashboard.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('css/Admin/admin_layout.css') }}">
 </head>
 
 <body>
@@ -33,9 +34,15 @@
                 <h4>Admin</h4>
                 <p class="text-muted">Manage the entire system</p>
             </div>
-            <a href="{{ route('admin.dashboard') }}">Dashboard</a>
-            <a href="{{ route('admin.product') }}">Products</a>
-            <a href="{{ route('admin.spareparts') }}">Spare Parts</a>
+            <a href="{{ route('admin.dashboard') }}" class="d-flex align-items-center">
+                <i class="fas fa-tachometer-alt me-2 text-primary"></i> Dashboard
+            </a>
+            <a href="{{ route('admin.product') }}" class="d-flex align-items-center">
+                <i class="fas fa-box-open me-2 text-success"></i> Products
+            </a>
+            <a href="{{ route('admin.spareparts') }}" class="d-flex align-items-center">
+                <i class="fas fa-cogs me-2 text-warning"></i> Spare Parts
+            </a>
             <div class="repairs-menu">
                 <a href="#repairsMenu" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="repairsMenu" class="menu-link d-flex align-items-center">
                     <i class="fas fa-tools me-2 text-danger"></i> Repairs
@@ -71,9 +78,15 @@
                     </a>
                 </div>
             </div>
-            <a href="{{ route('admin.employees') }}">Employees</a>
-            <a href="{{ route('admin.customers') }}">Customers</a>
-            <a href="{{ route('admin.orderhistory') }}">Order History</a>
+            <a href="{{ route('admin.employees') }}" class="d-flex align-items-center">
+                <i class="fas fa-user-tie me-2 text-info"></i> Employees
+            </a>
+            <a href="{{ route('admin.customers') }}" class="d-flex align-items-center">
+                <i class="fas fa-users me-2 text-purple"></i> Customers
+            </a>
+            <a href="{{ route('admin.orderhistory') }}" class="d-flex align-items-center">
+                <i class="fas fa-history me-2 text-muted"></i> Order History
+            </a>
             <div class="sidebar-footer">
                 <p>© 2024 Mobile Shop</p>
             </div>
@@ -130,6 +143,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('js/Admin/dashboard.js') }}"></script>
     <script src="{{ asset('js/custom.js') }}"></script>
+
+    <script src="{{ asset('js/Admin/admin_layout.js') }}"></script>
+
 
 
 </body>
