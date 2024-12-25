@@ -6,6 +6,7 @@ use App\Models\Brand;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\SparePart;
+use Illuminate\Support\Facades\DB;
 
 
 
@@ -18,7 +19,7 @@ class SparePartsController extends Controller
     {
         // Get all spare parts with brand names
         $spareParts = SparePart::with('brands')->get();
-        return view('admin.spareparts.viewspareparts');
+        return view('admin.spareparts.viewspareparts', compact('spareParts'));
     }
 
     /**
@@ -36,35 +37,53 @@ class SparePartsController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = $request->validate([
-            'brand_id' => 'required|max:255',
-            'model_name' => 'required|max:255',
+        // Validate request data
+        $validatedData = $request->validate([
+            'brand_id' => 'required|integer|exists:brands,brand_id',
+            'model_name' => 'required|max:255|exists:brands,model_name',
             'sparepart_name' => 'required|max:255',
             'description' => 'required|max:255',
             'price' => 'required|numeric',
-            'stock_quantity' => 'required',
+            'stock_quantity' => 'required|integer|min:1',
         ]);
-        // dd($validator);
 
-        $validatedData = $validator;
+        DB::beginTransaction();
 
-        $data = [
-            'name' => $validatedData['sparepart_name'],
-            'description' => $validatedData['description'],
-            'price' => $validatedData['price'],
-            'stock_quantity' => $validatedData['stock_quantity'],
-        ];
+        try {
 
-        // create sparepart
-        $sparePart = SparePart::create($data);
+            // Prepare spare part data
+            $sparePartData = [
+                'name' => $validatedData['sparepart_name'],
+                'description' => $validatedData['description'],
+                'price' => $validatedData['price'],
+                'stock_quantity' => $validatedData['stock_quantity'],
+            ];
 
-        // get brand by name
-        $brand = Brand::where('model_category_id', $validatedData['brand_id'])->where('model_name', $validatedData['model_name'])->first();
-        // pivot table
-        $brand->spareParts()->attach($brand->model_category_id, $sparePart->spare_part_id);
-        return redirect()->route('admin.spareparts')->with('success', 'Sparepart created successfully.');
+            // Create the spare part
+            $sparePart = SparePart::create($sparePartData);
 
 
+            // Find the brand by brand_id
+            $brandName = Brand::select('brand_name')->where('brand_id', $validatedData['brand_id'])->first();
+
+            $brand = Brand::where('brand_name', $brandName->brand_name)->where('model_name', $validatedData['model_name'])->first();
+
+            if ($brand) {
+                DB::commit();
+                // Associate the spare part with the brand using the pivot table
+                $brand->spareParts()->attach($sparePart->spare_part_id);
+
+                return redirect()->route('admin.spareparts')->with('success', 'Spare part created successfully.');
+            } else {
+                DB::rollBack();
+                // If no brand found, rollback the spare part creation
+                $sparePart->delete();
+                return redirect()->back()->withErrors(['model_name' => 'The specified model name does not exist for the selected brand.']);
+            }
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->withErrors(['error' => 'An error occurred while creating the spare part.']);
+        }
     }
 
     /**
@@ -78,10 +97,18 @@ class SparePartsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Category $category)
+    public function edit(SparePart $sparePart)
     {
-        return view('admin.spareparts.editspareparts');
+        $brands = Brand::all(); // Assuming you have a Brand model
+        // How get spare part unique brand_id in brand_spare_part table
+        $brand_id = DB::table('brand_spare_part')->select('brand_id')->where('spare_part_id', $sparePart->spare_part_id)->first();
+        // Model name from brand table
+        $model_name = Brand::select('model_name')->where('brand_id', $brand_id->brand_id)->first();
+
+
+        return view('admin.spareparts.editspareparts', compact('sparePart', 'brands', 'brand_id', 'model_name'));
     }
+
 
     /**
      * Update the specified resource in storage.

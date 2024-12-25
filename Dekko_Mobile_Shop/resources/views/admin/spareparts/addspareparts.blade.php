@@ -10,7 +10,7 @@
         <select class="form-control" id="brand" name="brand_id" required>
             <option value="">Select Brand</option>
             @foreach ($brands as $brand)
-                <option value="{{ $brand->model_category_id }}">{{ $brand->brand_name }}</option>
+                <option value="{{ $brand->brand_id }}">{{ $brand->brand_name }}</option>
             @endforeach
         </select>
     </div>
@@ -41,6 +41,7 @@
 <script>
     document.getElementById('brand').addEventListener('change', function() {
         const brandId = this.value;
+
         const modelSelect = document.getElementById('model');
         modelSelect.innerHTML = '<option value="">Loading...</option>';
 
