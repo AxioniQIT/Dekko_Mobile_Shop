@@ -43,49 +43,58 @@
         </button>
     </div>
 
-    <!-- Brand Table -->
-    <div class="table-responsive">
-        <table class="table table-bordered table-hover shadow-sm">
-            <thead class="table-dark text-center">
-                <tr>
-                    <th>#</th>
-                    <th>Brand Name</th>
-                    <th>Model Name</th>
-                    <th>Description</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Samsung</td>
-                    <td>Galaxy S Series</td>
-                    <td>Premium smartphones by Samsung</td>
-                    <td class="text-center">
-                        <button class="btn btn-primary btn-sm" onclick="openEditBrandModal(1, 'Samsung', 'Galaxy S Series', 'Premium smartphones by Samsung')">
-                            <i class="fas fa-edit"></i> Edit
-                        </button>
-                        <button class="btn btn-danger btn-sm">
-                            <i class="fas fa-trash"></i> Delete
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Apple</td>
-                    <td>iPhone</td>
-                    <td>High-end devices from Apple</td>
-                    <td class="text-center">
-                        <button class="btn btn-primary btn-sm" onclick="openEditBrandModal(2, 'Apple', 'iPhone', 'High-end devices from Apple')">
-                            <i class="fas fa-edit"></i> Edit
-                        </button>
-                        <button class="btn btn-danger btn-sm">
-                            <i class="fas fa-trash"></i> Delete
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+   <!-- Brand Table -->
+<div class="card shadow-lg">
+    <div class="card-header bg-primary text-white text-center">
+        <h5 class="mb-0"><i class="fas fa-table me-2"></i> Brand List</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle" id="brandTable">
+                <thead class="table-light text-center">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Brand Name</th>
+                        <th scope="col">Model Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Samsung</td>
+                        <td>Galaxy S Series</td>
+                        <td>Premium smartphones by Samsung</td>
+                        <td class="text-center">
+                            <button class="btn btn-outline-primary btn-sm me-2" onclick="openEditBrandModal(1, 'Samsung', 'Galaxy S Series', 'Premium smartphones by Samsung')">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="btn btn-outline-danger btn-sm">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Apple</td>
+                        <td>iPhone</td>
+                        <td>High-end devices from Apple</td>
+                        <td class="text-center">
+                            <button class="btn btn-outline-primary btn-sm me-2" onclick="openEditBrandModal(2, 'Apple', 'iPhone', 'High-end devices from Apple')">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="btn btn-outline-danger btn-sm">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer text-center bg-light">
+        <small class="text-muted">Manage your brands and models with ease</small>
     </div>
 </div>
 
