@@ -16,7 +16,7 @@
         <select class="form-control" id="brand" name="brand_id" required>
             <option value="">Select Brand</option>
             @foreach ($brands as $brand)
-                <option value="{{ $brand->brand_id }}" {{ $brand_id->brand_id == $brand->brand_id ? 'selected' : '' }}>
+                <option value="{{ $brand->brand_id }}" {{ $brand_name == $brand->brand_name ? 'selected' : '' }}>
                     {{ $brand->brand_name }}
                 </option>
             @endforeach
@@ -26,7 +26,12 @@
     <div class="form-group">
         <label for="model">Model</label>
         <select class="form-control" id="model" name="model_name" required>
-            <option value="{{ $model_name->model_name }}">{{ $model_name->model_name }} </option>
+            @foreach ($models as $model)
+                <option value="{{ $model->model_name }}"
+                    {{ $model_name->model_name == $model->model_name ? 'selected' : '' }}>
+                    {{ $model->model_name }}
+                </option>
+            @endforeach
         </select>
     </div>
 
@@ -75,7 +80,7 @@
                     modelSelect.innerHTML = '<option value="">Error loading models</option>';
                 });
         } else {
-            modelSelect.innerHTML = '<option value="">Select Model</option>';
+            modelSelect.innerHTML = '<option value="">No Model</option>';
         }
-    }); <
+    });
 </script>

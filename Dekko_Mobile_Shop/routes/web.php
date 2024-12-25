@@ -48,13 +48,13 @@ Route::middleware('auth')->group(function () {
 
 
 
-         //Admin -> Brands Routes
-         Route::get('/brands', [BrandController::class, 'index'])->name('brand');
-         Route::get('/brand/create', [BrandController::class, 'create'])->name('brand.create');
-         Route::post('/brands', [BrandController::class, 'store'])->name('brand.store');
-         Route::get('/brand/{brand}/edit', [BrandController::class, 'edit'])->name('brand.edit');
-         Route::patch('/brand/{brand}', [BrandController::class, 'update'])->name('brand.update');
-         Route::delete('/brand/{brand}', [BrandController::class, 'destroy'])->name('brand.destroy');
+        //Admin -> Brands Routes
+        Route::get('/brands', [BrandController::class, 'index'])->name('brand');
+        Route::get('/brand/create', [BrandController::class, 'create'])->name('brand.create');
+        Route::post('/brands', [BrandController::class, 'store'])->name('brand.store');
+        Route::get('/brand/{brand}/edit', [BrandController::class, 'edit'])->name('brand.edit');
+        Route::patch('/brand/{brand}', [BrandController::class, 'update'])->name('brand.update');
+        Route::delete('/brand/{brand}', [BrandController::class, 'destroy'])->name('brand.destroy');
 
 
 
@@ -65,7 +65,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/spareparts/create', [SparePartsController::class, 'create'])->name('spareparts.create');
         Route::post('/spareparts', [SparePartsController::class, 'store'])->name('spareparts.store');
         Route::get('/spareparts/{sparePart}/edit', [SparePartsController::class, 'edit'])->name('spareparts.edit');
-        Route::patch('/spareparts/{sparePart}', [SparePartsController::class, 'update'])->name('spareparts.update');
+        Route::put('/spareparts/{sparePart}', [SparePartsController::class, 'update'])->name('spareparts.update');
         Route::delete('/spareparts/{sparePart}', [SparePartsController::class, 'destroy'])->name('spareparts.destroy');
 
         // Find Brand Models
@@ -75,11 +75,11 @@ Route::middleware('auth')->group(function () {
 
 
 
-       //Admin -> Repairs Routes
-       Route::get('/repairs', [RepairController::class, 'index'])->name('repairs');
-       Route::get('/repairs_Management', [RepairController::class, 'repairsmanagement'])->name('repairs.management');
-       Route::get('/repairs_add', [RepairController::class, 'addRepair'])->name('repairs.addrepair');
-       Route::get('/repairUpdates', [RepairController::class, 'repairUpdates'])->name('repairs.repairUpdates');
+        //Admin -> Repairs Routes
+        Route::get('/repairs', [RepairController::class, 'index'])->name('repairs');
+        Route::get('/repairs_Management', [RepairController::class, 'repairsmanagement'])->name('repairs.management');
+        Route::get('/repairs_add', [RepairController::class, 'addRepair'])->name('repairs.addrepair');
+        Route::get('/repairUpdates', [RepairController::class, 'repairUpdates'])->name('repairs.repairUpdates');
 
 
 

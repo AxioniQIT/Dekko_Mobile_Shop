@@ -61,7 +61,7 @@
                     modelSelect.innerHTML = '<option value="">Error loading models</option>';
                 });
         } else {
-            modelSelect.innerHTML = '<option value="">Select Model</option>';
+            modelSelect.innerHTML = '<option value="">No Model</option>';
         }
     });
 </script>
