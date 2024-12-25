@@ -64,7 +64,7 @@ class BrandController extends Controller
     {
         // Get all models for the given brand
         $models = Brand::where('brand_name', $brand->brand_name)
-            ->get(['model_category_id', 'model_name']);
+            ->get(['brand_id', 'model_name']);
         return response()->json($models);
     }
 

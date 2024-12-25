@@ -12,7 +12,7 @@ class Brand extends Model
     use HasFactory;
 
     protected $table = 'brands';
-    protected $primaryKey = 'model_category_id';
+    protected $primaryKey = 'brand_id';
     protected $fillable = ['brand_name', 'model_name', 'description'];
 
     // Many-to-many relationship with spare_parts

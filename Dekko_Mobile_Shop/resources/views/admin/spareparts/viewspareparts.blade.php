@@ -22,8 +22,8 @@
                             <thead>
                                 <tr>
                                     <th>Spareparts ID</th>
-                                    <th>Brand Name </th>
                                     <th>Spareparts Name</th>
+                                    <th>Brand Name </th>
                                     <th>Description</th>
                                     <th>Price</th>
                                     <th>Stock Quantity</th>
@@ -31,52 +31,36 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <td> 1 </td>
-                                <td> Brand 1 </td>
-                                <td> Spareparts 1 </td>
-                                <td> Description 1 </td>
-                                <td> Price 1 </td>
-                                <td> Stock Quantity 1 </td>
-                                <td data-label="Action">
-                                    <button class="btn btn-sm btn-success"
-                                        data-url="{{ route('admin.spareparts.edit', 1) }}" data-size="md"
-                                        data-ajax-popup="true" data-title="Edit Sparepart">
-                                        <i class="fas fa-edit" data-bs-toggle="tooltip" title="Edit Sparepart"></i>
-                                    </button>
-                                    <form action="{{ route('admin.spareparts.destroy', 1) }}" method="POST"
-                                        class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="button" class="btn btn-sm btn-danger show_confirm">
-                                            <i class="fas fa-trash-alt" data-bs-toggle="tooltip" title="Delete"></i>
-                                        </button>
-                                    </form>
-                                </td>
-
-                                {{-- @foreach ($artists as $row)
+                                @foreach ($spareParts as $sparepart)
                                     <tr>
-                                        <td>{{ $row->aid }}</td>
-                                        <td><img src="{{ asset($row->image) }}" class="img-thumbnail"
-                                                style="width: 50px; height: 50px;" alt="Artist Image"></td>
-                                        <td>{{ $row->artist_name }}</td>
-                                        <td>{{ $row->phone_no }}</td>
-                                        <td>{{ $row->visible }}</td>
-                                        <td>{{ $row->status }}</td>
+                                        <td>{{ $sparepart->spare_part_id }}</td>
+                                        <td>{{ $sparepart->name }}</td>
                                         <td>
-                                            <button class="btn btn-sm btn-primary"
-                                                data-url="{{ route('useradmin.events.edit_artist', [$row->aid]) }} "
-                                                data-size="md" data-ajax-popup="true" data-title="{{ __('Edit Artist') }}">
-                                                <i class="ti ti-pencil py-1" data-bs-toggle="tooltip" title="Edit"></i>
-                                            </button>
-                                            <button class="btn btn-sm btn-danger"
-                                                data-url="{{ route('useradmin.events.delete_artist_view', $row->aid) }} "
-                                                data-size="md" data-ajax-popup="true"
-                                                data-title="{{ __('Delete Artist') }}">
-                                                <i class="ti ti-trash py-1" data-bs-toggle="tooltip" title="Delete"></i>
-                                            </button>
+                                            @foreach ($sparepart->brands as $brand)
+                                                {{ $brand->brand_name }}
+                                            @endforeach
                                         </td>
-                                    </tr>
-                                @endforeach --}}
+                                        <td>{{ $sparepart->description }}</td>
+                                        <td>{{ $sparepart->price }}</td>
+                                        <td>{{ $sparepart->stock_quantity }}</td>
+                                        <td data-label="Action">
+                                            <button class="btn btn-sm btn-success"
+                                                data-url="{{ route('admin.spareparts.edit', ['sparePart' => $sparepart->spare_part_id]) }}"
+                                                data-size="md" data-ajax-popup="true" data-title="Edit Sparepart">
+                                                <i class="fas fa-edit" data-bs-toggle="tooltip" title="Edit Sparepart"></i>
+                                            </button>
+                                            <form
+                                                action="{{ route('admin.spareparts.destroy', ['sparePart' => $sparepart->spare_part_id]) }}"
+                                                method="POST" class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="button" class="btn btn-sm btn-danger show_confirm">
+                                                    <i class="fas fa-trash-alt" data-bs-toggle="tooltip" title="Delete"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    <tr>
+                                @endforeach
                             </tbody>
                         </table>
                         <!-- End of new table structure -->
