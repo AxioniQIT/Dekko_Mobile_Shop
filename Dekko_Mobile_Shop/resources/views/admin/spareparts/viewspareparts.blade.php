@@ -24,6 +24,7 @@
                                     <th>Spareparts ID</th>
                                     <th>Spareparts Name</th>
                                     <th>Brand Name </th>
+                                    <th>Model Name</th>
                                     <th>Description</th>
                                     <th>Price</th>
                                     <th>Stock Quantity</th>
@@ -38,6 +39,11 @@
                                         <td>
                                             @foreach ($sparepart->brands as $brand)
                                                 {{ $brand->brand_name }}
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            @foreach ($sparepart->brands as $brand)
+                                                {{ $brand->model_name }}
                                             @endforeach
                                         </td>
                                         <td>{{ $sparepart->description }}</td>
