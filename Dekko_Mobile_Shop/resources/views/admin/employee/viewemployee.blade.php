@@ -1,3 +1,5 @@
+
+
 @extends('layouts.admin')
 
 @section('title', 'Employee Management')
@@ -56,56 +58,70 @@
     </div>
 
     <!-- Employee Table -->
-    <div class="table-responsive">
-        <table class="table table-bordered table-hover shadow-sm" id="employeeTable">
-            <thead class="table-dark text-center">
-                <tr>
-                    <th>Full Name</th>
-                    <th>Role</th>
-                    <th>Username</th>
-                    <th>Password</th>
-                    <th>Phone No</th>
-                    <th>Email</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody id="employeeTableBody">
-                <tr>
-                    <td>John Doe</td>
-                    <td>Manager</td>
-                    <td>johndoe</td>
-                    <td>password123</td>
-                    <td>123-456-7890</td>
-                    <td>johndoe@example.com</td>
-                    <td class="text-center">
-                        <button class="btn btn-info btn-sm" onclick="openViewEmployeeModal('John Doe', 'Manager', 'johndoe', 'password123', '123-456-7890', 'johndoe@example.com')">
-                            <i class="fas fa-eye"></i> View
-                        </button>
-                        <button class="btn btn-danger btn-sm" onclick="deleteEmployee(this)">
-                            <i class="fas fa-trash"></i> Delete
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Jane Smith</td>
-                    <td>Staff</td>
-                    <td>janesmith</td>
-                    <td>password456</td>
-                    <td>987-654-3210</td>
-                    <td>janesmith@example.com</td>
-                    <td class="text-center">
-                        <button class="btn btn-info btn-sm" onclick="openViewEmployeeModal('Jane Smith', 'Staff', 'janesmith', 'password456', '987-654-3210', 'janesmith@example.com')">
-                            <i class="fas fa-eye"></i> View
-                        </button>
-                        <button class="btn btn-danger btn-sm" onclick="deleteEmployee(this)">
-                            <i class="fas fa-trash"></i> Delete
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="container mt-4">
+    <div class="card shadow-lg">
+    <div class="card-header bg-primary text-white text-center">
+        <h5 class="mb-0"><i class="fas fa-table me-2"></i> Employee Management</h5>
+    </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover align-middle" id="employeeTable">
+                    <thead class="table-light text-center">
+                        <tr>
+                            <th scope="col">Full Name</th>
+                            <th scope="col">Role</th>
+                            <th scope="col">Username</th>
+                            <th scope="col">Password</th>
+                            <th scope="col">Phone No</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="employeeTableBody">
+                        <tr>
+                            <td>John Doe</td>
+                            <td>Manager</td>
+                            <td>johndoe</td>
+                            <td>password123</td>
+                            <td>123-456-7890</td>
+                            <td>johndoe@example.com</td>
+                            <td class="text-center">
+                                <button class="btn btn-outline-primary btn-sm me-2"
+                                        onclick="openViewEmployeeModal('John Doe', 'Manager', 'johndoe', 'password123', '123-456-7890', 'johndoe@example.com')">
+                                    <i class="fas fa-eye"></i> View
+                                </button>
+                                <button class="btn btn-outline-danger btn-sm" onclick="deleteEmployee(this)">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Jane Smith</td>
+                            <td>Staff</td>
+                            <td>janesmith</td>
+                            <td>password456</td>
+                            <td>987-654-3210</td>
+                            <td>janesmith@example.com</td>
+                            <td class="text-center">
+                                <button class="btn btn-outline-primary btn-sm me-2"
+                                        onclick="openViewEmployeeModal('Jane Smith', 'Staff', 'janesmith', 'password456', '987-654-3210', 'janesmith@example.com')">
+                                    <i class="fas fa-eye"></i> View
+                                </button>
+                                <button class="btn btn-outline-danger btn-sm" onclick="deleteEmployee(this)">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer text-center bg-light">
+            <small class="text-muted">Manage your employees efficiently</small>
+        </div>
     </div>
 </div>
+
 
 <!-- Add Employee Modal -->
 <div id="addEmployeeModal" class="modal">

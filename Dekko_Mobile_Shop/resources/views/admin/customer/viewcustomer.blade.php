@@ -1,3 +1,5 @@
+
+
 @extends('layouts.admin')
 
 @section('title', 'Customer Management')
@@ -44,53 +46,63 @@
     </div>
 
     <!-- Customer Table -->
-    <div class="table-responsive">
-        <table class="table table-bordered table-hover shadow-sm">
-            <thead class="table-dark text-center">
-                <tr>
-                    <th>Id</th>
-                    <th>Customer Name</th>
-                    <th>Phone No</th>
-                    <th>Address</th>
-                    <th>City</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Kamal</td>
-                    <td>0771223123</td>
-                    <td>Thudawa</td>
-                    <td>Matara</td>
-                    <td class="text-center">
-                        <button class="btn btn-primary btn-sm" onclick="openEditCustomerModal('1', 'Kamal', '0771223123', 'Thudawa', 'Matara')">
-                            <i class="fas fa-edit"></i> Edit
-                        </button>
-                        <button class="btn btn-danger btn-sm">
-                            <i class="fas fa-trash"></i> Delete
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Nimal</td>
-                    <td>0771223123</td>
-                    <td>Galle</td>
-                    <td>Galle</td>
-                    <td class="text-center">
-                        <button class="btn btn-primary btn-sm" onclick="openEditCustomerModal('2', 'Nimal', '0771223123', 'Galle', 'Galle')">
-                            <i class="fas fa-edit"></i> Edit
-                        </button>
-                        <button class="btn btn-danger btn-sm">
-                            <i class="fas fa-trash"></i> Delete
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+<div class="card shadow-lg">
+    <div class="card-header bg-primary text-white text-center">
+        <h5 class="mb-0"><i class="fas fa-table me-2"></i> Customer List</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle" id="customerTable">
+                <thead class="table-light text-center">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Customer Name</th>
+                        <th scope="col">Phone No</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">City</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Kamal</td>
+                        <td>0771223123</td>
+                        <td>Thudawa</td>
+                        <td>Matara</td>
+                        <td class="text-center">
+                            <button class="btn btn-outline-primary btn-sm me-2" onclick="openEditCustomerModal('1', 'Kamal', '0771223123', 'Thudawa', 'Matara')">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="btn btn-outline-danger btn-sm">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Nimal</td>
+                        <td>0771223123</td>
+                        <td>Galle</td>
+                        <td>Galle</td>
+                        <td class="text-center">
+                            <button class="btn btn-outline-primary btn-sm me-2" onclick="openEditCustomerModal('2', 'Nimal', '0771223123', 'Galle', 'Galle')">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="btn btn-outline-danger btn-sm">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer text-center bg-light">
+        <small class="text-muted">Manage your customers with ease</small>
     </div>
 </div>
+
 
 <!-- Add/Edit Customer Modal -->
 <div id="addCustomerModal" class="modal" style="display: none;">
