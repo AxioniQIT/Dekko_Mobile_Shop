@@ -33,6 +33,12 @@ class RepairController extends Controller
         return view('admin.repairs.repair_updates');
     }
 
+    public function posRepair()
+    {
+        return view('admin.repairs.pos_repair');
+    }
+
+
 
     /**
      * Show the form for creating a new resource.
