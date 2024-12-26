@@ -57,9 +57,12 @@
             <a href="{{ route('admin.spareparts') }}" class="d-flex align-items-center">
                 <i class="fas fa-cogs me-2 text-warning"></i> Spare Parts
             </a>
+            <a href="{{ route('admin.repairs.posRepair') }}" class="d-flex align-items-center">
+                <i class="fas fa-cogs me-2 text-warning"></i> POS-Repair
+            </a>
+
             <div class="repairs-menu">
-                <a href="#repairsMenu" data-bs-toggle="collapse" role="button" aria-expanded="false"
-                    aria-controls="repairsMenu" class="menu-link d-flex align-items-center">
+                <a href="#repairsMenu" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="repairsMenu" class="menu-link d-flex align-items-center">
                     <i class="fas fa-tools me-2 text-danger"></i> Repairs
                     <span class="ms-auto"><i class="fas fa-chevron-down"></i></span>
                 </a>
@@ -73,31 +76,30 @@
                         <i class="fas fa-cogs me-2 text-primary"></i> Repairs Management
                     </a>
 
-                    <a href="{{ route('admin.repairs.repairUpdates') }}"
-                        class="submenu-link d-flex align-items-center">
+                    <a href="{{ route('admin.repairs.repairUpdates') }}" class="submenu-link d-flex align-items-center">
                         <i class="fas fa-sync-alt me-2 text-warning"></i> Repairs Updates
                     </a>
 
 
 
-                    <a href="{{ route('admin.repairs', ['status' => 'in-progress']) }}"
-                        class="submenu-link d-flex align-items-center">
+                    <a href="{{ route('admin.repairs', ['status' => 'in-progress']) }}" class="submenu-link d-flex align-items-center">
                         <i class="fas fa-spinner me-2 text-info"></i> In Progress
                     </a>
-                    <a href="{{ route('admin.repairs', ['status' => 'pending']) }}"
-                        class="submenu-link d-flex align-items-center">
+                    <a href="{{ route('admin.repairs', ['status' => 'pending']) }}" class="submenu-link d-flex align-items-center">
                         <i class="fas fa-hourglass-half me-2 text-warning"></i> Pending
                     </a>
-                    <a href="{{ route('admin.repairs', ['status' => 'completed']) }}"
-                        class="submenu-link d-flex align-items-center">
+                    <a href="{{ route('admin.repairs', ['status' => 'completed']) }}" class="submenu-link d-flex align-items-center">
                         <i class="fas fa-check-circle me-2 text-success"></i> Completed
                     </a>
-                    <a href="{{ route('admin.repairs', ['status' => 'cancelled']) }}"
-                        class="submenu-link d-flex align-items-center">
+                    <a href="{{ route('admin.repairs', ['status' => 'cancelled']) }}" class="submenu-link d-flex align-items-center">
                         <i class="fas fa-times-circle me-2 text-danger"></i> Cancelled
                     </a>
                 </div>
             </div>
+
+            <a href="{{ route('admin.repairs.posRepair') }}" class="d-flex align-items-center">
+                <i class="fas fa-cogs me-2 text-warning"></i> POS - Repair
+            </a>
             <a href="{{ route('admin.employees') }}" class="d-flex align-items-center">
                 <i class="fas fa-user-tie me-2 text-info"></i> Employees
             </a>
