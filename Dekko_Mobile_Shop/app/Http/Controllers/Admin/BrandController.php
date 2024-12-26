@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Brand;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class BrandController extends Controller
 {
@@ -13,7 +14,9 @@ class BrandController extends Controller
      */
     public function index()
     {
-        return view('admin.brand.viewbrand');
+        // Get all brands
+        $brands = Brand::all();
+        return view('admin.brand.viewbrand', compact('brands'));
 
     }
 
@@ -22,7 +25,8 @@ class BrandController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.brand.addbrand');
+
     }
 
     /**
@@ -30,31 +34,75 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'brand_name' => 'required|max:255',
+            'model_name' => 'required|max:255',
+            'description' => 'nullable|max:255',
+        ]);
+
+        DB::beginTransaction();
+
+        try {
+            Brand::create([
+                'brand_name' => $request->brand_name,
+                'model_name' => $request->model_name,
+                'description' => $request->description,
+            ]);
+
+            DB::commit();
+
+            return redirect()->route('admin.brands')->with('success', 'Brand added successfully!');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'An error occurred: ' . $e->getMessage())->withInput();
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Brand $brand)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Brand $brand)
     {
-        //
+        return view('admin.brand.editbrand', compact('brand'));
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Brand $brand)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'brand_name' => 'required|max:255',
+            'model_name' => 'required|max:255',
+            'description' => 'nullable|max:255',
+        ]);
+
+        DB::beginTransaction();
+
+        try {
+            $brand = Brand::findOrFail($id);
+
+            $brand->update([
+                'brand_name' => $request->brand_name,
+                'model_name' => $request->model_name,
+                'description' => $request->description,
+            ]);
+
+            DB::commit();
+
+            return redirect()->route('admin.brands')->with('success', 'Brand updated successfully!');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'An error occurred: ' . $e->getMessage())->withInput();
+        }
+    }
+
+    public function destroy(Brand $brand)
+    {
+        $brand->delete();
+        return redirect()->route('admin.brands')->with('success', 'Brand deleted successfully!');
     }
 
     /**

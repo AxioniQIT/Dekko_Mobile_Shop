@@ -49,11 +49,11 @@ Route::middleware('auth')->group(function () {
 
 
         //Admin -> Brands Routes
-        Route::get('/brands', [BrandController::class, 'index'])->name('brand');
+        Route::get('/brands', [BrandController::class, 'index'])->name('brands');
         Route::get('/brand/create', [BrandController::class, 'create'])->name('brand.create');
         Route::post('/brands', [BrandController::class, 'store'])->name('brand.store');
         Route::get('/brand/{brand}/edit', [BrandController::class, 'edit'])->name('brand.edit');
-        Route::patch('/brand/{brand}', [BrandController::class, 'update'])->name('brand.update');
+        Route::put('/brand/{brand}', [BrandController::class, 'update'])->name('brand.update');
         Route::delete('/brand/{brand}', [BrandController::class, 'destroy'])->name('brand.destroy');
 
 

@@ -19,6 +19,13 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
+    <!-- Toastr CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+
+    <!-- Toastr JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+
 
     <link rel="stylesheet" href="{{ asset('css/Admin/style.css') }}" id="main-style-link">
     <link rel="stylesheet" href="{{ asset('css/Admin/dashboard.css') }}">
@@ -41,7 +48,7 @@
                 <i class="fas fa-box-open me-2 text-success"></i> Products
             </a>
 
-            <a href="{{ route('admin.brand') }}" class="d-flex align-items-center">
+            <a href="{{ route('admin.brands') }}" class="d-flex align-items-center">
                 <i class="fas fa-tags me-2 text-info"></i> Brands
             </a>
 
@@ -51,7 +58,8 @@
                 <i class="fas fa-cogs me-2 text-warning"></i> Spare Parts
             </a>
             <div class="repairs-menu">
-                <a href="#repairsMenu" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="repairsMenu" class="menu-link d-flex align-items-center">
+                <a href="#repairsMenu" data-bs-toggle="collapse" role="button" aria-expanded="false"
+                    aria-controls="repairsMenu" class="menu-link d-flex align-items-center">
                     <i class="fas fa-tools me-2 text-danger"></i> Repairs
                     <span class="ms-auto"><i class="fas fa-chevron-down"></i></span>
                 </a>
@@ -65,22 +73,27 @@
                         <i class="fas fa-cogs me-2 text-primary"></i> Repairs Management
                     </a>
 
-                    <a href="{{ route('admin.repairs.repairUpdates') }}" class="submenu-link d-flex align-items-center">
+                    <a href="{{ route('admin.repairs.repairUpdates') }}"
+                        class="submenu-link d-flex align-items-center">
                         <i class="fas fa-sync-alt me-2 text-warning"></i> Repairs Updates
                     </a>
 
 
 
-                    <a href="{{ route('admin.repairs', ['status' => 'in-progress']) }}" class="submenu-link d-flex align-items-center">
+                    <a href="{{ route('admin.repairs', ['status' => 'in-progress']) }}"
+                        class="submenu-link d-flex align-items-center">
                         <i class="fas fa-spinner me-2 text-info"></i> In Progress
                     </a>
-                    <a href="{{ route('admin.repairs', ['status' => 'pending']) }}" class="submenu-link d-flex align-items-center">
+                    <a href="{{ route('admin.repairs', ['status' => 'pending']) }}"
+                        class="submenu-link d-flex align-items-center">
                         <i class="fas fa-hourglass-half me-2 text-warning"></i> Pending
                     </a>
-                    <a href="{{ route('admin.repairs', ['status' => 'completed']) }}" class="submenu-link d-flex align-items-center">
+                    <a href="{{ route('admin.repairs', ['status' => 'completed']) }}"
+                        class="submenu-link d-flex align-items-center">
                         <i class="fas fa-check-circle me-2 text-success"></i> Completed
                     </a>
-                    <a href="{{ route('admin.repairs', ['status' => 'cancelled']) }}" class="submenu-link d-flex align-items-center">
+                    <a href="{{ route('admin.repairs', ['status' => 'cancelled']) }}"
+                        class="submenu-link d-flex align-items-center">
                         <i class="fas fa-times-circle me-2 text-danger"></i> Cancelled
                     </a>
                 </div>
@@ -133,8 +146,8 @@
     </div>
 
 
-    <div id="commanModelOver" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modelCommanModelLabel"
-        aria-hidden="true">
+    <div id="commanModelOver" class="modal fade" tabindex="-1" role="dialog"
+        aria-labelledby="modelCommanModelLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content ">
                 <div class="modal-header">
@@ -145,6 +158,24 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            @if (session('success'))
+                toastr.success("{{ session('success') }}");
+            @endif
+
+            @if (session('error'))
+                toastr.error("{{ session('error') }}");
+            @endif
+        });
+        toastr.options = {
+            "closeButton": true,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "timeOut": "5000"
+        };
+    </script>
+
 
     <!-- Bootstrap JS and Custom Script -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
