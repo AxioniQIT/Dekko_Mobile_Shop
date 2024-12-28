@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\RepairController;
 use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\OrderHistoryController;
+use App\Http\Controllers\SuperAdmin\UserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\SuperAdmin\SuperAdminController;
 use App\Models\Product;
@@ -108,6 +109,16 @@ Route::middleware('auth')->group(function () {
     // *** GROUP ROUTES FOR SUPERADMIN ***//
     Route::prefix('Superadmin')->as('superadmin.')->group(function () {
         Route::get('/dashboard', [SuperadminController::class, 'index'])->name('dashboard');
+
+        //Superadmin -> User Routes
+        Route::get('/users', [UserController::class, 'index'])->name('users');
+        Route::get('/users/create', [UserController::class, 'create'])->name('user.create');
+        Route::post('/users', [UserController::class, 'store'])->name('user.store');
+        Route::get('/user/{user}/edit', [UserController::class, 'edit'])->name('user.edit');
+        Route::put('/user/{user}', [UserController::class, 'update'])->name('user.update');
+        Route::delete('/user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
+
+
     });
 
     // *** GROUP ROUTES FOR EMPLOYEE ***//
