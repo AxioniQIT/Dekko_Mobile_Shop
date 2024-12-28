@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\OrderHistoryController;
 use App\Http\Controllers\SuperAdmin\UserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\SuperAdmin\SuperAdminController;
+use App\Http\Controllers\Pos\PosController;
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
@@ -36,6 +37,10 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+
+    Route::prefix('Pos')->as('pos.')->group(function () {
+        Route::get('/pos_product', [PosController::class, 'index'])->name('product');
+    });
 
     // *** GROUP ROUTES FOR ADMIN ***//
     Route::prefix('Admin')->as('admin.')->group(function () {

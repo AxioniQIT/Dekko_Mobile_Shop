@@ -44,6 +44,16 @@
             <a href="{{ route('admin.dashboard') }}" class="d-flex align-items-center">
                 <i class="fas fa-tachometer-alt me-2 text-primary"></i> Dashboard
             </a>
+
+            <!-- ........................................ -->
+
+            <a href="{{ route('pos.product') }}" class="d-flex align-items-center">
+                <i class="fas fa-box-open me-2 text-success"></i> Pos-Product
+            </a>
+
+            <!-- ........................................ -->
+
+
             <a href="{{ route('admin.product') }}" class="d-flex align-items-center">
                 <i class="fas fa-box-open me-2 text-success"></i> Products
             </a>

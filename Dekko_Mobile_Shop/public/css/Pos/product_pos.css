@@ -1,0 +1,193 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f6f6f6;
+    color: #333;
+  }
+  
+  /* Header Styles */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: #002366;
+    color: white;
+  }
+  
+  .header .logo, .header .user-menu {
+    display: flex;
+    align-items: center;
+  }
+  
+  .header .logo img, .header .user-menu .user-icon {
+    margin-right: 10px;
+  }
+  
+  /* Main Container */
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  /* Filters Section */
+  .filters {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+  }
+  
+  .filters input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .filters button {
+    background-color: transparent;
+    border: none;
+  }
+  
+  /* Product Table */
+  .product-table {
+    flex: 2;
+    background: white;
+    /*box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);*/
+    box-shadow: 0px 0px 12px 5px rgba(0, 0, 0, 0.433);
+  }
+  
+  .product-table table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .product-table th, .product-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  /* Final Bill Section */
+  .final-bill {
+    flex: 1;
+    background: white;
+    padding: 20px;
+    box-shadow: 0px 0px 12px 5px rgba(0, 0, 0, 0.433);
+    border-radius: 5px;
+  }
+  
+  .final-bill h2 {
+    margin-bottom: 20px;
+  }
+  
+  .final-bill input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .final-bill table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+  }
+  
+  .final-bill th, .final-bill td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .final-bill .confirm-btn, .final-bill .print-btn {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin: 10px 0;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  .final-bill .confirm-btn {
+    background-color: #008000;
+    color: white;
+  }
+  
+  .final-bill .print-btn {
+    background-color: #002366;
+    color: white;
+  }
+
+  /*  -------------------------------------------*/
+
+  /* Dark Mode Toggle Button */
+.dark-mode-btn {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+  /* Dark Mode Styles */
+  body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+  }
+  
+  body.dark-mode .header {
+    background-color: #1e1e1e;
+  }
+  
+  body.dark-mode .product-table {
+    background: #1e1e1e;
+    color: #e0e0e0;
+  }
+  
+  body.dark-mode .product-table th, 
+  body.dark-mode .product-table td {
+    border-bottom: 1px solid #333;
+  }
+  
+  body.dark-mode .final-bill {
+    background: #1e1e1e;
+  }
+  
+  body.dark-mode .final-bill input {
+    background: #333;
+    color: #e0e0e0;
+    border: 1px solid #555;
+  }
+  
+  body.dark-mode .confirm-btn {
+    background-color: #006400;
+  }
+  
+  body.dark-mode .print-btn {
+    background-color: #001a66;
+  }
+
+  /*  -----------------------------------------------*/
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .product-table, .final-bill {
+      width: 100%;
+    }
+  
+    .container {
+      flex-direction: column;
+    }
+  }
+  
