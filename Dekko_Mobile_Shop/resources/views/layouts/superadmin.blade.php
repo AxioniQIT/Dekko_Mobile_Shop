@@ -6,11 +6,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $title ?? 'Super Admin Dashboard' }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="{{ asset('css/SuperAdmin/superadmin-dashboard.css') }}">
-    <style>
 
-    </style>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+    <!-- Toastr CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+
+    <!-- Toastr JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+
+    <link rel="stylesheet" href="{{ asset('css/SuperAdmin/superadmin-dashboard.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('css/Admin/style.css') }}" id="main-style-link">
+    {{-- <link rel="stylesheet" href="{{ asset('css/Admin/dashboard.css') }}"> --}}
+
+    <link rel="stylesheet" href="{{ asset('css/Admin/admin_layout.css') }}">
 </head>
 
 <body>
@@ -18,16 +39,24 @@
         <!-- Sidebar -->
         <div class="sidebar" id="sidebar">
             <div class="sidebar-header">
-                <h4>Super Admin</h4>
+                <h4>Admin</h4>
                 <p class="text-muted">Manage the entire system</p>
             </div>
-            <a href="#">Dashboard</a>
-            <a href="#">Users</a>
-            <a href="#">Products</a>
-            <a href="#">Repairs</a>
-            <a href="#">Sales</a>
-            <a href="#">System Logs</a>
-            <a href="#">Settings</a>
+            <a href="{{ route('superadmin.dashboard') }}" class="d-flex align-items-center">
+                <i class="fas fa-tachometer-alt me-2 text-primary"></i> Dashboard
+            </a>
+            <a href="{{ route('superadmin.users') }}" class="d-flex align-items-center">
+                <i class="fas fa-users me-2 text-danger"></i> Users
+            </a>
+            <a href="" class="d-flex align-items-center">
+                <i class="fas fa-box-open me-2 text-success"></i> Products
+            </a>
+            <a href="" class="d-flex align-items-center">
+                <i class="fas fa-tags me-2 text-info"></i> Brands
+            </a>
+            <a href="" class="d-flex align-items-center">
+                <i class="fas fa-chart-line me-2 text-warning"></i> Sales
+            </a>
             <div class="sidebar-footer">
                 <p>© 2024 Mobile Shop</p>
             </div>
@@ -48,56 +77,24 @@
                 </div>
             </nav>
             <div class="container mt-4">
-                <h2>Welcome, Super Admin!</h2>
-                <div class="row">
-                    <div class="col-md-3 col-sm-6 mb-3">
-                        <div class="card text-center">
-                            <div class="card-body">
-                                <h5>Users</h5>
-                                <p>120 Active</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 mb-3">
-                        <div class="card text-center">
-                            <div class="card-body">
-                                <h5>Products</h5>
-                                <p>350 Items</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 mb-3">
-                        <div class="card text-center">
-                            <div class="card-body">
-                                <h5>Sales</h5>
-                                <p>$12,000</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 mb-3">
-                        <div class="card text-center">
-                            <div class="card-body">
-                                <h5>Repairs</h5>
-                                <p>45 Pending</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @yield('content')
             </div>
         </div>
     </div>
-    <div id="commanModel" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modelCommanModelLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content ">
+    <div id="commanModel" class="modal fade" tabindex="-1" aria-labelledby="modelCommanModelLabel"
+        style="display: none;">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="modelCommanModelLabel"></h4>
+                    <h5 class="modal-title" id="modelCommanModelLabel"></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body"></div>
+                <div class="modal-body">
+                </div>
             </div>
         </div>
     </div>
+
 
     <div id="commanModelOver" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modelCommanModelLabel"
         aria-hidden="true">
@@ -111,10 +108,33 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            @if (session('success'))
+                toastr.success("{{ session('success') }}");
+            @endif
+
+            @if (session('error'))
+                toastr.error("{{ session('error') }}");
+            @endif
+        });
+        toastr.options = {
+            "closeButton": true,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "timeOut": "5000"
+        };
+    </script>
+
+
     <!-- Bootstrap JS and Custom Script -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ asset('js/SuperAdmin/dashboard.js') }}"></script>
+    <script src="{{ asset('js/Admin/dashboard.js') }}"></script>
     <script src="{{ asset('js/custom.js') }}"></script>
+
+    <script src="{{ asset('js/Admin/admin_layout.js') }}"></script>
+
+
 
 </body>
 
