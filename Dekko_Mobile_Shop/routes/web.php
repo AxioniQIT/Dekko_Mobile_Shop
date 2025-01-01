@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SparePartsController;
 use App\Http\Controllers\Admin\RepairController;
 use App\Http\Controllers\Admin\EmployeeController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\SuperAdmin\SuperAdminController;
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
+
 
 
 Route::get('/', function () {
@@ -38,13 +40,29 @@ Route::middleware('auth')->group(function () {
 
 
     // *** GROUP ROUTES FOR ADMIN ***//
-    Route::prefix('Admin')->as('admin.')->group(function () {
+    Route::prefix('admin')->as('admin.')->group(function () {
         Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
 
 
 
         //Admin -> Product Routes
         Route::get('/product', [ProductController::class, 'index'])->name('product');
+        Route::get('products/create', [ProductController::class, 'create'])->name('products.create');
+        Route::post('products', [ProductController::class, 'store'])->name('products.store');
+        Route::get('products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
+        Route::put('products/{product}', [ProductController::class, 'update'])->name('products.update');
+        Route::delete('products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
+
+
+
+        // Routes for Category Management
+
+        Route::get('product/categories', [CategoryController::class, 'index'])->name('product.categories.view');
+        Route::get('product/categories/create', [CategoryController::class, 'create'])->name('product.categories.create');
+        Route::post('product/categories', [CategoryController::class, 'store'])->name('product.categories.store');
+        Route::get('product/categories/{category}/edit', [CategoryController::class, 'edit'])->name('product.categories.edit');
+        Route::put('product/categories/{category}', [CategoryController::class, 'update'])->name('product.categories.update');
+        Route::delete('product/categories/{category}', [CategoryController::class, 'destroy'])->name('product.categories.destroy');
 
 
 
@@ -77,11 +95,11 @@ Route::middleware('auth')->group(function () {
 
 
      //Admin -> Repairs Routes
-     Route::get('/repairs', [RepairController::class, 'index'])->name('repairs');
-     Route::get('/repairs_Management', [RepairController::class, 'repairsmanagement'])->name('repairs.management');
-     Route::get('/repairs_add', [RepairController::class, 'addRepair'])->name('repairs.addrepair');
-     Route::get('/repairUpdates', [RepairController::class, 'repairUpdates'])->name('repairs.repairUpdates');
-     Route::get('/posRepair', [RepairController::class, 'posRepair'])->name('repairs.posRepair');
+        Route::get('/repairs', [RepairController::class, 'index'])->name('repairs');
+        Route::get('/repairs_Management', [RepairController::class, 'repairsmanagement'])->name('repairs.management');
+        Route::get('/repairs_add', [RepairController::class, 'addRepair'])->name('repairs.addrepair');
+        Route::get('/repairUpdates', [RepairController::class, 'repairUpdates'])->name('repairs.repairUpdates');
+        Route::get('/posRepair', [RepairController::class, 'posRepair'])->name('repairs.posRepair');
 
 
 
@@ -108,7 +126,7 @@ Route::middleware('auth')->group(function () {
     });
 
     // *** GROUP ROUTES FOR SUPERADMIN ***//
-    Route::prefix('Superadmin')->as('superadmin.')->group(function () {
+    Route::prefix('superadmin')->as('superadmin.')->group(function () {
         Route::get('/dashboard', [SuperadminController::class, 'index'])->name('dashboard');
 
         //Superadmin -> User Routes
@@ -123,7 +141,7 @@ Route::middleware('auth')->group(function () {
     });
 
     // *** GROUP ROUTES FOR EMPLOYEE ***//
-    Route::prefix('Employee')->as('employee.')->group(function () {
+    Route::prefix('employee')->as('employee.')->group(function () {
         Route::get('/dashboard', [EmployeeController::class, 'index'])->name('dashboard');
     });
 

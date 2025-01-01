@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
 
 
 class ProductController extends Controller
@@ -14,7 +16,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('admin.product.viewproduct');
+        $products = Product::with('category')->get();
+        return view('admin.product.viewproduct', compact('products'));
     }
 
     /**
@@ -22,46 +25,65 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        return view('admin.product.addproduct', compact('categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'product_name' => 'required|string|max:255',
+            'brand' => 'nullable|string|max:255',
+            'model' => 'nullable|string|max:255',
+            'price' => 'required|numeric|min:0',
+            'stock_quantity' => 'required|integer|min:0',
+            'reorder_threshold' => 'nullable|integer|min:0',
+            'description' => 'nullable|string',
+            'category_id' => 'required|exists:categories,category_id',
+        ]);
+
+        Product::create([
+            'product_name' => $request->product_name,
+            'brand' => $request->brand,
+            'model' => $request->model,
+            'price' => $request->price,
+            'stock_quantity' => $request->stock_quantity,
+            'reorder_threshold' => $request->reorder_threshold,
+            'description' => $request->description,
+            'category_id' => $request->category_id,
+            'user_id' => auth()->id(), // Fallback to default user ID
+        ]);
+
+        return redirect()->route('admin.product')->with('success', 'Product created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Product $product)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Product $product)
     {
-        //
+        $categories = Category::all();
+        return view('admin.product.editproduct', compact('product', 'categories'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Product $product)
     {
-        //
+        $request->validate([
+            'product_name' => 'required|string|max:255',
+            'brand' => 'nullable|string|max:255',
+            'model' => 'nullable|string|max:255',
+            'price' => 'required|numeric|min:0',
+            'stock_quantity' => 'required|integer|min:0',
+            'reorder_threshold' => 'nullable|integer|min:0',
+            'description' => 'nullable|string',
+            'category_id' => 'required|exists:categories,category_id',
+        ]);
+
+        $product->update($request->all());
+        return redirect()->route('admin.product')->with('success', 'Product updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        return redirect()->route('admin.product')->with('success', 'Product deleted successfully.');
     }
 }
