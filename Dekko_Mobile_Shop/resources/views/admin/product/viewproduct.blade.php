@@ -10,12 +10,41 @@
         <p class="text-muted">Manage your products efficiently and effectively</p>
     </div>
 
-    <!-- Search and Add Product Section -->
-    <div class="d-flex flex-wrap justify-content-between mb-3">
-        <input type="text" class="form-control flex-grow-1 me-2 mb-2 mb-md-0" placeholder="Search products..." style="max-width: 300px;">
-        <button class="btn btn-success d-flex align-items-center justify-content-center add-product-btn" onclick="openAddProductModal()">
+    <!-- Widgets Section -->
+    <div class="row mb-4 text-center">
+        <div class="col-md-4">
+            <div class="card shadow-sm bg-primary text-white p-3">
+                <i class="fas fa-box-open fa-2x mb-2"></i>
+                <h5>Total Products</h5>
+                <h3>250</h3>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm bg-success text-white p-3">
+                <i class="fas fa-tags fa-2x mb-2"></i>
+                <h5>Categories</h5>
+                <h3>15</h3>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm bg-warning text-dark p-3">
+                <i class="fas fa-dollar-sign fa-2x mb-2"></i>
+                <h5>Total Sales</h5>
+                <h3>$12,345</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search and Add Product -->
+    <div class="d-flex justify-content-between mb-3">
+        <input type="text" class="form-control d-inline-block" style="width: 200px;" placeholder="Search products...">
+        <button class="btn btn-success" onclick="openAddProductModal()">
             <i class="fas fa-plus me-2"></i> Add Product
         </button>
+
+        <a href="{{ route('admin.products.create') }}"> <button class="btn btn-success"> <i class="fas fa-plus me-2"></i>Add Product </button> </a>
+
+        <a href="{{ route('admin.product.categories.view') }}"><button class="btn btn-dark"> <i class="fas fa-plus me-2"></i>Add New Category </button></a>
     </div>
 
     <!-- Product Table -->
@@ -25,31 +54,40 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered table-hover align-middle" id="productTable">
-                    <thead class="table-light text-center">
+                <table class="table table-bordered">
+                    <thead>
                         <tr>
-                            <th>Product Name</th>
+                            <th>#</th>
+                            <th>Name</th>
                             <th>Category</th>
+                            <th>model</th>
                             <th>Price</th>
-                            <th>Description</th>
+                            <th>Stock</th>
+                            {{-- reorder threshold --}}
+                            <th>reorder</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="productTableBody">
-                        <tr>
-                            <td>Smartphone</td>
-                            <td>Electronics</td>
-                            <td>$699</td>
-                            <td>Latest model with advanced features</td>
-                            <td class="text-center">
-                                <button class="btn btn-outline-primary btn-sm" onclick="openEditProductModal('1', 'Smartphone', 'Electronics', '$699', 'Latest model with advanced features')">
-                                    <i class="fas fa-edit"></i> Edit
-                                </button>
-                                <button class="btn btn-outline-danger btn-sm">
-                                    <i class="fas fa-trash"></i> Delete
-                                </button>
-                            </td>
-                        </tr>
+                    <tbody>
+                        @foreach($products as $product)
+                            <tr>
+                                <td>{{ $product->product_id }}</td>
+                                <td>{{ $product->product_name }}</td>
+                                <td>{{ $product->category->category_name ?? 'N/A' }}</td>
+                                <td>{{ $product->model }}</td>
+                                <td>{{ $product->price }}</td>
+                                <td>{{ $product->stock_quantity }}</td>
+                                <td>{{ $product->reorder_threshold}}</td>
+                                <td>
+                                    <a href="{{ route('admin.products.edit', $product->product_id) }}" class="btn btn-primary">Edit</a>
+                                    <form action="{{ route('admin.products.destroy', $product->product_id) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -60,7 +98,7 @@
     </div>
 
     <!-- Add/Edit Product Modal -->
-    <div id="addProductModal" class="modal">
+    <div id="addProductModal" class="modal" style="display: none;">
         <div class="modal-content p-4">
             <h4 id="modalTitle" class="mb-3 text-primary"><i class="fas fa-plus-circle"></i> Add Product</h4>
             <form id="productForm">
@@ -93,7 +131,85 @@
         </div>
     </div>
 
-    <!-- Internal CSS -->
+    <script>
+        let editingProductId = null;
+
+        // Open Add Product Modal
+        function openAddProductModal() {
+            document.getElementById('modalTitle').textContent = 'Add Product';
+            clearProductForm();
+            editingProductId = null;
+            document.getElementById('addProductModal').style.display = 'flex';
+        }
+
+        // Open Edit Product Modal
+        function openEditProductModal(id, name, category, price, description) {
+            document.getElementById('modalTitle').textContent = 'Edit Product';
+            document.getElementById('productName').value = name;
+            document.getElementById('productCategory').value = category;
+            document.getElementById('productPrice').value = price;
+            document.getElementById('productDescription').value = description;
+            editingProductId = id;
+            document.getElementById('addProductModal').style.display = 'flex';
+        }
+
+        // Save Product
+        function saveProduct() {
+            const name = document.getElementById('productName').value;
+            const category = document.getElementById('productCategory').value;
+            const price = document.getElementById('productPrice').value;
+            const description = document.getElementById('productDescription').value;
+
+            if (editingProductId) {
+                // Update existing product row
+                const rows = document.querySelectorAll('table tbody tr');
+                rows.forEach(row => {
+                    if (row.cells[0].textContent === editingProductId) {
+                        row.cells[1].textContent = name;
+                        row.cells[2].textContent = category;
+                        row.cells[3].textContent = price;
+                        row.cells[4].textContent = description;
+                    }
+                });
+            } else {
+                // Add new product row
+                const table = document.querySelector('table tbody');
+                const newRow = table.insertRow();
+                const newId = table.rows.length;
+                newRow.innerHTML = `
+                    <td>${newId}</td>
+                    <td>${name}</td>
+                    <td>${category}</td>
+                    <td>${price}</td>
+                    <td>${description}</td>
+                    <td class="text-center">
+                        <button class="btn btn-outline-primary btn-sm" onclick="openEditProductModal('${newId}', '${name}', '${category}', '${price}', '${description}')">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button class="btn btn-outline-danger btn-sm">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </td>
+                `;
+            }
+
+            closeProductModal();
+        }
+
+        // Close Product Modal
+        function closeProductModal() {
+            document.getElementById('addProductModal').style.display = 'none';
+        }
+
+        // Clear Product Form
+        function clearProductForm() {
+            document.getElementById('productName').value = '';
+            document.getElementById('productCategory').value = '';
+            document.getElementById('productPrice').value = '';
+            document.getElementById('productDescription').value = '';
+        }
+    </script>
+
     <style>
         .modal {
             position: fixed;
@@ -111,117 +227,8 @@
             background: #fff;
             border-radius: 8px;
             padding: 20px;
-            width: 90%;
-            max-width: 500px;
-        }
-
-        .btn {
-            min-width: 100px;
-        }
-
-        .add-product-btn {
-            background-color: #28a745;
-            color: white;
-            font-weight: bold;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-
-        .add-product-btn:hover {
-            background-color: #218838;
-        }
-
-        @media (max-width: 576px) {
-            .d-flex {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .d-flex .form-control {
-                margin-bottom: 10px;
-            }
+            width: 80%;
+            max-width: 600px;
         }
     </style>
-
-    <!-- Internal JS -->
-    <script>
-        let currentEditingProductId = null;
-
-        function openAddProductModal() {
-            currentEditingProductId = null;
-            document.getElementById('modalTitle').textContent = 'Add Product';
-            document.getElementById('productName').value = '';
-            document.getElementById('productCategory').value = '';
-            document.getElementById('productPrice').value = '';
-            document.getElementById('productDescription').value = '';
-            document.getElementById('addProductModal').style.display = 'flex';
-        }
-
-        function openEditProductModal(id, name, category, price, description) {
-            currentEditingProductId = id;
-            document.getElementById('modalTitle').textContent = 'Edit Product';
-            document.getElementById('productName').value = name;
-            document.getElementById('productCategory').value = category;
-            document.getElementById('productPrice').value = price.replace('$', '');
-            document.getElementById('productDescription').value = description;
-            document.getElementById('addProductModal').style.display = 'flex';
-        }
-
-        function closeProductModal() {
-            document.getElementById('addProductModal').style.display = 'none';
-        }
-
-        function saveProduct() {
-            const name = document.getElementById('productName').value;
-            const category = document.getElementById('productCategory').value;
-            const price = document.getElementById('productPrice').value;
-            const description = document.getElementById('productDescription').value;
-
-            if (!name || !category || !price || !description) {
-                alert('Please fill out all fields');
-                return;
-            }
-
-            const tableBody = document.getElementById('productTableBody');
-
-            if (currentEditingProductId) {
-                const row = document.querySelector(`[data-product-id="${currentEditingProductId}"]`);
-                row.innerHTML = `
-                    <td>${name}</td>
-                    <td>${category}</td>
-                    <td>$${price}</td>
-                    <td>${description}</td>
-                    <td class="text-center">
-                        <button class="btn btn-outline-primary btn-sm" onclick="openEditProductModal('${currentEditingProductId}', '${name}', '${category}', '$${price}', '${description}')">
-                            <i class="fas fa-edit"></i> Edit
-                        </button>
-                        <button class="btn btn-outline-danger btn-sm">
-                            <i class="fas fa-trash"></i> Delete
-                        </button>
-                    </td>
-                `;
-            } else {
-                const newRow = document.createElement('tr');
-                newRow.dataset.productId = Date.now();
-                newRow.innerHTML = `
-                    <td>${name}</td>
-                    <td>${category}</td>
-                    <td>$${price}</td>
-                    <td>${description}</td>
-                    <td class="text-center">
-                        <button class="btn btn-outline-primary btn-sm" onclick="openEditProductModal('${Date.now()}', '${name}', '${category}', '$${price}', '${description}')">
-                            <i class="fas fa-edit"></i> Edit
-                        </button>
-                        <button class="btn btn-outline-danger btn-sm">
-                            <i class="fas fa-trash"></i> Delete
-                        </button>
-                    </td>
-                `;
-                tableBody.appendChild(newRow);
-            }
-
-            closeProductModal();
-        }
-    </script>
-</div>
 @endsection
