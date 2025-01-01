@@ -19,4 +19,12 @@ class EmployeeController extends Controller
     {
         return view('employee.dashboard');
     }
+
+    public function viewEmployee()
+    {
+        return view('admin.employee.viewemployee');
+    }
+
+
+
 }

@@ -1,21 +1,44 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Employee;
 
-use App\Models\Product;
+use App\Models\Repair;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 
-class EmployeeController extends Controller
+class EmployeeRepairController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('admin.employee.viewemployee');
+        return view('employee.repairs.viewrepairs');
     }
+
+
+    public function repairsmanagement()
+    {
+        return view('employee.repairs.repairs_management');
+    }
+
+    public function addRepair()
+    {
+        return view('employee.repairs.add_repair');
+    }
+
+    public function repairUpdates()
+    {
+        return view('employee.repairs.repair_updates');
+    }
+
+    public function posRepair()
+    {
+        return view('employee.repairs.pos_repair');
+    }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -36,7 +59,7 @@ class EmployeeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
+    public function show(Repair $repair)
     {
         //
     }
@@ -44,7 +67,7 @@ class EmployeeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Product $product)
+    public function edit(Repair $repair)
     {
         //
     }
@@ -52,7 +75,7 @@ class EmployeeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, Repair $repair)
     {
         //
     }
@@ -60,7 +83,7 @@ class EmployeeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product)
+    public function destroy(Repair $repair)
     {
         //
     }
