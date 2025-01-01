@@ -7,13 +7,16 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SparePartsController;
 use App\Http\Controllers\Admin\RepairController;
-use App\Http\Controllers\Admin\EmployeeController;
+use App\Http\Controllers\Employee\EmployeeController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\OrderHistoryController;
 use App\Http\Controllers\SuperAdmin\UserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\SuperAdmin\SuperAdminController;
 use App\Http\Controllers\Pos\PosController;
+use App\Http\Controllers\Employee\EmployeeRepairController;
+use App\Http\Controllers\Employee\EmployeeOrderHistoryController;
+
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
@@ -111,7 +114,7 @@ Route::middleware('auth')->group(function () {
 
 
         //Admin -> Employee Routes
-        Route::get('/employee', [EmployeeController::class, 'index'])->name('employees');
+        Route::get('/employee', [EmployeeController::class, 'viewEmployee'])->name('employees');
 
 
 
@@ -148,6 +151,20 @@ Route::middleware('auth')->group(function () {
     // *** GROUP ROUTES FOR EMPLOYEE ***//
     Route::prefix('employee')->as('employee.')->group(function () {
         Route::get('/dashboard', [EmployeeController::class, 'index'])->name('dashboard');
+
+
+    //Employee -> Repairs Routes
+     Route::get('/repairs', [EmployeeRepairController::class, 'index'])->name('repairs');
+     Route::get('/repairs_Management', [EmployeeRepairController::class, 'repairsmanagement'])->name('repairs.management');
+     Route::get('/repairs_add', [EmployeeRepairController::class, 'addRepair'])->name('repairs.addrepair');
+     Route::get('/repairUpdates', [EmployeeRepairController::class, 'repairUpdates'])->name('repairs.repairUpdates');
+     Route::get('/posRepair', [EmployeeRepairController::class, 'posRepair'])->name('repairs.posRepair');
+
+
+
+    //Employee -> Order History Routes
+    Route::get('/orderhistory', [EmployeeOrderHistoryController::class, 'index'])->name('orderhistory');
+
     });
 
 
