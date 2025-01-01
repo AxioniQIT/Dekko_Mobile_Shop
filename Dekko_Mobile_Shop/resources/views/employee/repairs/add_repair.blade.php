@@ -3,304 +3,241 @@
 @section('content')
 <style>
     /* Custom Styles for Repair Management */
-    body {
-        font-family: 'Arial', sans-serif;
-        background-color: #f4f7fc;
-        margin: 0;
-        padding: 0;
-    }
-
-    .container {
-        max-width: 1200px;
-        margin: 30px auto;
+    .repair-form, .cost-summary {
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         padding: 20px;
-        background-color: #f0f8ff;
-
-    }
-
-    h3, h5 {
-        font-size: 1.6rem;
-        color: #2c3e50;
-        text-align: center;
-        font-weight: bold;
-
-    }
-    h2{
-        color: #ffffff;
-        font-size: 1.6rem;
-        text-align: center;
-        font-weight: bold;
-    }
-
-    .repair-form, .cost-summary, .repair-entry {
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        border-radius: 10px;
-        background-color: #fff;
-        padding: 25px;
         margin-bottom: 30px;
-    }
-
-    .repair-form-second {
-    background-color: #0822E3FF; /* Existing background color */
-    color: #ffffff; /* Change this to your preferred text color */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    padding: 25px;
-    margin-bottom: 30px;
-}
-
-
-    .form-label {
-        font-weight: 600;
-        color: #34495e;
-    }
-
-    .form-control, .form-select {
         border-radius: 8px;
-        padding: 12px;
-        font-size: 1rem;
+    }
+
+    .repair-form h3, .cost-summary h3 {
+        font-size: 1.5rem;
+        color: #34495e;
         margin-bottom: 20px;
     }
 
-    .btn {
-        border-radius: 10px;
-        padding: 12px 25px;
-        font-size: 1.1rem;
-        text-transform: uppercase;
-        transition: all 0.3s;
-    }
-
-    .btn:hover {
-        transform: scale(1.05);
-    }
-
-    .btn-primary {
-        background-color: #3498db;
-        border: none;
-        color: white;
-    }
-
-    .btn-success {
-        background-color: #2ecc71;
-        border: none;
-        color: white;
-    }
-
-    .btn-danger {
-        background-color: #e74c3c;
-        border: none;
-        color: white;
-    }
-
-    .cost-summary ul {
-        list-style-type: none;
-        padding: 0;
-    }
-
-    .cost-summary ul li {
-        display: flex;
-        justify-content: space-between;
+    .form-control, .form-select {
         margin-bottom: 15px;
-        font-size: 1.3rem;
     }
 
-    .cost-summary ul li span {
-        font-weight: 600;
-    }
-
-    .table {
-        width: 100%;
-        margin-bottom: 30px;
-        border-collapse: collapse;
-    }
-
-    .table th, .table td {
-        text-align: left;
+    .cost-summary .list-group-item {
+        font-size: 1.1rem;
         padding: 12px;
-        border: 1px solid #ddd;
     }
 
-    .table th {
-        background-color: #ecf0f1;
-        color: #2c3e50;
-    }
-
-    .table tr:nth-child(even) {
-        background-color: #f9f9f9;
-    }
-
-    .table td input[type="number"] {
-        width: 70px;
-    }
-
-    .table-wrapper {
-        overflow-x: auto;
-    }
-
-    @media (max-width: 768px) {
-        .row {
-            flex-direction: column;
-        }
-
-        .col-md-6 {
-            width: 100%;
-            margin-bottom: 15px;
-        }
-
-        .btn {
-            width: 100%;
-            margin-bottom: 10px;
-        }
-
-        .repair-entry {
-            padding: 15px;
-        }
-
-        .cost-summary ul li {
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .cost-summary ul li span {
-            margin-bottom: 5px;
-        }
+    .cost-summary .total-cost {
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: #16a085;
     }
 </style>
-<div class="repair-form-second">
-        <h2>Add Repair Details</h2>
-    </div>
-
-<div class="container">
 
 
-    <!-- Customer Info Form -->
-    <div class="repair-form">
-        <form>
-            <div class="row">
-                <div class="col-md-6">
-                    <label for="customerName" class="form-label">Customer Name</label>
-                    <input type="text" class="form-control" id="customerName" placeholder="Enter customer name">
-                </div>
-
-                <div class="col-md-6">
-                    <label for="customerContact" class="form-label">Customer Contact</label>
-                    <input type="text" class="form-control" id="customerContact" placeholder="Enter contact number">
-                </div>
+<div class="container mt-5">
+<!-- Repair Entry Form -->
+<div class="repair-form">
+    <h3>Add Repair Details</h3>
+    <form>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="customerName" class="form-label">Customer Name</label>
+                <input type="text" class="form-control" id="customerName" value="John Doe">
             </div>
-        </form>
-    </div>
 
-    <!-- Repair History Section -->
-    <div class="repair-history">
-        <h5>Multiple Repair Options</h5>
-
-        <div id="repairHistoryContainer">
-            <div class="repair-entry">
-                <div class="text-end">
-                    <button type="button" class="btn btn-danger btn-remove">Remove this Repair</button>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <label for="deviceDetails" class="form-label">Device Details</label>
-                        <textarea class="form-control" id="deviceDetails" rows="3" placeholder="Enter device details"></textarea>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label for="issueDescription" class="form-label">Issue Description</label>
-                        <textarea class="form-control" id="issueDescription" rows="3" placeholder="Enter issue description"></textarea>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <label for="estimatedCost" class="form-label">Estimated Cost</label>
-                        <input type="number" class="form-control" id="estimatedCost" placeholder="Enter estimated cost">
-                    </div>
-
-                    <div class="col-md-6">
-                        <label for="repairStatus" class="form-label">Repair Status</label>
-                        <select class="form-select" id="repairStatus">
-                            <option value="Pending">Pending</option>
-                            <option value="In Progress">In Progress</option>
-                            <option value="Completed">Completed</option>
-                            <option value="Cancelled">Cancelled</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Spare Parts Section -->
-                <h5>Select Spare Parts</h5>
-                <div class="table-wrapper">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Select</th>
-                                <th>Brand</th>
-                                <th>Model</th>
-                                <th>Part Name</th>
-                                <th>Price</th>
-                                <th>Stock Quantity</th>
-                                <th>Quantity</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>Apple</td>
-                                <td>iPhone 13 Pro Max</td>
-                                <td>Screen</td>
-                                <td>$60.00</td>
-                                <td>25</td>
-                                <td><input type="number" class="form-control" min="1" max="25" value="1"></td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>Apple</td>
-                                <td>iPhone 13 Pro Max</td>
-                                <td>Battery</td>
-                                <td>$50.00</td>
-                                <td>15</td>
-                                <td><input type="number" class="form-control" min="1" max="15" value="1"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+            <div class="col-md-6 mb-3">
+                <label for="customerContact" class="form-label">Customer Contact</label>
+                <input type="text" class="form-control" id="customerContact" value="0123456789">
             </div>
         </div>
 
-        <!-- Button to Add Another Repair -->
-        <div class="text-end mt-3">
-            <button type="button" class="btn btn-primary add-repair">Add Another Repair</button>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="deviceDetails" class="form-label">Device Details</label>
+                <textarea class="form-control" id="deviceDetails" rows="3">iPhone 13 Pro Max</textarea>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label for="issueDescription" class="form-label">Issue Description</label>
+                <textarea class="form-control" id="issueDescription" rows="3">Cracked screen and battery issues</textarea>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="estimatedCost" class="form-label">Estimated Cost</label>
+                <input type="number" class="form-control" id="estimatedCost" value="150.00">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label for="repairStatus" class="form-label">Repair Status</label>
+                <select class="form-select" id="repairStatus">
+                    <option selected>Pending</option>
+                    <option>In Progress</option>
+                    <option>Completed</option>
+                    <option>Cancelled</option>
+                </select>
+            </div>
+        </div>
+
+
+    </form>
+</div>
+
+
+<!-- Spare Parts Selection -->
+<div class="repair-form">
+    <h3>Select Spare Parts</h3>
+    <div class="row">
+        <div class="col-md-6">
+            <label for="brandSelection" class="form-label">Brand</label>
+            <select class="form-select" id="brandSelection">
+                <option selected>Apple</option>
+                <option>Samsung</option>
+                <option>OnePlus</option>
+            </select>
+        </div>
+
+        <div class="col-md-6">
+            <label for="modelSelection" class="form-label">Model</label>
+            <select class="form-select" id="modelSelection">
+                <option selected>iPhone 13 Pro Max</option>
+                <option>iPhone 12</option>
+                <option>iPhone 11</option>
+            </select>
+        </div>
+
+        <div class="col-md-6">
+            <label for="modelSelection" class="form-label">Spare Part</label>
+            <select class="form-select" id="modelSelection">
+                <option selected>Screen</option>
+                <option>Battery</option>
+                <option>Charging Port</option>
+
+            </select>
         </div>
     </div>
 
-    <!-- Cost Summary -->
-    <div class="cost-summary">
-        <h3>Cost Summary</h3>
+    <h5 class="mt-3 text-center text-primary">Available Spare Parts for iPhone 13 Pro Max</h5>
+<br/>
+<!-- Search Input -->
+<div class="mb-3">
+    <div class="mb-3 d-flex align-items-center">
+        <label for="searchInput" class="form-label me-3">Search Spare Parts</label>
+        <input type="text" class="form-control" id="searchInput" placeholder="Search by part name or price" style="max-width: 400px;">
+    </div>
+    </div>
 
-        <ul>
-            <li><span>Repair Cost:</span> $150.00</li>
-            <li><span>Spare Parts Total:</span> $130.00</li>
-            <li><span>Total Cost:</span> $280.00</li>
-        </ul>
+<!-- Table of Spare Parts -->
+<table class="table table-bordered" id="partsTable">
+    <thead>
+        <tr>
+            <th scope="col">Select</th>
 
-        <div class="text-end">
-            <button type="submit" class="btn btn-success">Save Repair</button>
-        </div>
+            <th scope="col">Brand</th>
+            <th scope="col">Model</th>
+            <th scope="col">Part Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Stock Quantity</th>
+            <th scope="col">Quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <input type="checkbox" class="form-check-input">
+            </td>
+
+            <td>Apple</td>
+            <td>iPhone 13 Pro Max</td>
+            <td>Screen</td>
+            <td>$60.00</td>
+            <td>25</td>
+            <td>
+                <input type="number" class="form-control" min="1" max="25" value="1" style="width: 80px;">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" class="form-check-input">
+            </td>
+
+            <td>Apple</td>
+            <td>iPhone 13 Pro Max</td>
+            <td>Battery</td>
+            <td>$50.00</td>
+            <td>15</td>
+            <td>
+                <input type="number" class="form-control" min="1" max="15" value="1" style="width: 80px;">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" class="form-check-input">
+            </td>
+
+            <td>Apple</td>
+            <td>iPhone 13 Pro Max</td>
+            <td>Charging Port</td>
+            <td>$20.00</td>
+            <td>30</td>
+            <td>
+                <input type="number" class="form-control" min="1" max="30" value="1" style="width: 80px;">
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<script>
+    // Function to filter table rows based on search input
+    document.getElementById('searchInput').addEventListener('input', function() {
+        var searchTerm = this.value.toLowerCase(); // Get the search term and convert to lowercase
+        var rows = document.querySelectorAll('#partsTable tbody tr'); // Get all table rows
+        rows.forEach(function(row) {
+            var partName = row.cells[1].textContent.toLowerCase(); // Get part name
+            var price = row.cells[2].textContent.toLowerCase(); // Get price
+            if (partName.includes(searchTerm) || price.includes(searchTerm)) {
+                row.style.display = ''; // Show row if it matches the search term
+            } else {
+                row.style.display = 'none'; // Hide row if it doesn't match the search term
+            }
+        });
+    });
+</script>
+
+    <button class="btn btn-success mt-3">Add Spare Parts</button>
+</div>
+
+<!-- Cost Summary -->
+<div class="cost-summary shadow-lg rounded p-4 mb-4" style="background: linear-gradient(135deg, #ffffff, #f8f9fa); border: 1px solid #e0e0e0;">
+    <h3 class="text-center text-primary mb-4"><i class="fas fa-calculator"></i> Cost Summary</h3>
+
+    <!-- Cost Details List -->
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item d-flex justify-content-between align-items-center bg-light">
+            <span class="text-muted">Repair Cost:</span>
+            <span class="badge bg-primary text-white py-2 px-3 rounded-pill fs-5">$150.00</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center bg-light">
+            <span class="text-muted">Spare Parts Total:</span>
+            <span class="badge bg-primary text-white py-2 px-3 rounded-pill fs-5">$130.00</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center bg-light">
+            <span class="fw-bold text-muted">Total Cost:</span>
+            <span class="badge bg-success text-white py-2 px-3 rounded-pill fs-5 fw-bold">$280.00</span>
+        </li>
+    </ul>
+
+    <!-- Save Button -->
+    <div class="text-end mt-4">
+        <button type="submit" class="btn btn-success btn-lg d-flex align-items-center justify-content-center px-4 py-2 shadow-sm border-0 rounded-pill transition-all hover:bg-green-600 focus:outline-none">
+            <i class="fas fa-save me-2"></i> <span>Save Repair</span>
+        </button>
     </div>
 </div>
 
-<script>
-    document.querySelector('.add-repair').addEventListener('click', function() {
-        var newRepair = document.querySelector('.repair-entry').cloneNode(true);
-        document.getElementById('repairHistoryContainer').appendChild(newRepair);
-    });
 
-    document.addEventListener('click', function(e) {
-        if (e.target && e.target.classList.contains('btn-remove')) {
-            e.target.closest('.repair-entry').remove();
-        }
-    });
-</script>
+<div>
+
+</div>
+</div>
 @endsection
