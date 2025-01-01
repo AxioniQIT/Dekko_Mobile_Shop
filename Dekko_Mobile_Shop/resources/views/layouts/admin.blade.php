@@ -25,12 +25,27 @@
     <!-- Toastr JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-
-
     <link rel="stylesheet" href="{{ asset('css/Admin/style.css') }}" id="main-style-link">
     <link rel="stylesheet" href="{{ asset('css/Admin/dashboard.css') }}">
-
     <link rel="stylesheet" href="{{ asset('css/Admin/admin_layout.css') }}">
+
+    <style>
+        /* Make repairs menu scrollable */
+        .repairs-submenu {
+            max-height: 300px; /* Adjust based on your content */
+            overflow-y: auto;
+        }
+
+        /* Custom style for sidebar collapse */
+        .sidebar.collapse {
+            display: none;
+        }
+
+        /* Optional: Add animation for smooth sidebar transition */
+        .sidebar {
+            transition: all 0.3s ease;
+        }
+    </style>
 </head>
 
 <body>
@@ -52,22 +67,20 @@
                 <i class="fas fa-tags me-2 text-info"></i> Brands
             </a>
 
-
-
             <a href="{{ route('admin.spareparts') }}" class="d-flex align-items-center">
                 <i class="fas fa-cogs me-2 text-warning"></i> Spare Parts
             </a>
+
             <a href="{{ route('admin.repairs.posRepair') }}" class="d-flex align-items-center">
                 <i class="fas fa-cogs me-2 text-warning"></i> POS-Repair
             </a>
 
             <div class="repairs-menu">
-                <a href="#repairsMenu" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="repairsMenu" class="menu-link d-flex align-items-center">
+                <a href="#" id="repairsMenuToggle" class="menu-link d-flex align-items-center">
                     <i class="fas fa-tools me-2 text-danger"></i> Repairs
-                    <span class="ms-auto"><i class="fas fa-chevron-down"></i></span>
+                    <span class="ms-auto"><i class="fas fa-chevron-down" id="repairsIcon"></i></span>
                 </a>
                 <div class="collapse repairs-submenu" id="repairsMenu">
-
                     <a href="{{ route('admin.repairs.addrepair') }}" class="submenu-link d-flex align-items-center">
                         <i class="fas fa-plus-circle me-2 text-success"></i> Add Repairs
                     </a>
@@ -79,8 +92,6 @@
                     <a href="{{ route('admin.repairs.repairUpdates') }}" class="submenu-link d-flex align-items-center">
                         <i class="fas fa-sync-alt me-2 text-warning"></i> Repairs Updates
                     </a>
-
-
 
                     <a href="{{ route('admin.repairs', ['status' => 'in-progress']) }}" class="submenu-link d-flex align-items-center">
                         <i class="fas fa-spinner me-2 text-info"></i> In Progress
@@ -118,7 +129,7 @@
         <div class="main-content w-100" id="mainContent">
             <nav class="navbar navbar-expand navbar-light">
                 <div class="container-fluid">
-                    <button class="toggle-btn me-3" id="sidebarToggle">☰</button>
+                    <button class="toggle-btn me-3" id="sidebarToggle" onclick="toggleSidebar()">☰</button>
                     <span class="navbar-brand mb-0 h1">Dashboard</span>
                     <div class="ms-auto">
                         <form method="POST" action="{{ route('logout') }}">
@@ -133,35 +144,35 @@
             </div>
         </div>
     </div>
-    <div id="commanModel" class="modal fade" tabindex="-1" aria-labelledby="modelCommanModelLabel"
-        style="display: none;">
-        <div class="modal-dialog modal-md">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modelCommanModelLabel"></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                </div>
-            </div>
-        </div>
-    </div>
 
-
-    <div id="commanModelOver" class="modal fade" tabindex="-1" role="dialog"
-        aria-labelledby="modelCommanModelLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content ">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="modelCommanModelLabel"></h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body"></div>
-            </div>
-        </div>
-    </div>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
+            const repairsMenuToggle = document.getElementById('repairsMenuToggle');
+            const repairsMenu = document.getElementById('repairsMenu');
+            const icon = document.getElementById('repairsIcon');
+            const allMenus = document.querySelectorAll('.collapse');
+
+            repairsMenuToggle.addEventListener('click', function () {
+                // Close all other open menus
+                allMenus.forEach(function(menu) {
+                    if (menu !== repairsMenu) {
+                        menu.classList.add('collapse');
+                    }
+                });
+
+                // Toggle the current menu
+                repairsMenu.classList.toggle('collapse');
+
+                // Toggle the icon (chevron down/up)
+                if (repairsMenu.classList.contains('collapse')) {
+                    icon.classList.remove('fa-chevron-up');
+                    icon.classList.add('fa-chevron-down');
+                } else {
+                    icon.classList.remove('fa-chevron-down');
+                    icon.classList.add('fa-chevron-up');
+                }
+            });
+
             @if (session('success'))
                 toastr.success("{{ session('success') }}");
             @endif
@@ -170,6 +181,7 @@
                 toastr.error("{{ session('error') }}");
             @endif
         });
+
         toastr.options = {
             "closeButton": true,
             "progressBar": true,
@@ -178,16 +190,10 @@
         };
     </script>
 
-
-    <!-- Bootstrap JS and Custom Script -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('js/Admin/dashboard.js') }}"></script>
     <script src="{{ asset('js/custom.js') }}"></script>
-
     <script src="{{ asset('js/Admin/admin_layout.js') }}"></script>
-
-
-
 </body>
 
 </html>
