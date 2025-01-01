@@ -1,7 +1,7 @@
 <form method="POST" action="{{ route('admin.brand.update', $brand->brand_id) }}" id="brandForm"
     enctype="multipart/form-data">
     @csrf
-    @method('PUT') <!-- Use PUT method for updating -->
+    @method('PUT')
     <input type="hidden" name="updated_by" value="admin">
     <div class="form-group">
         <label for="name">Name</label>
@@ -23,3 +23,26 @@
         </div>
     </div>
 </form>
+
+<style>
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<script>
+    document.getElementById('brandForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        alert('Brand updated successfully!');
+        this.submit();
+    });
+</script>
