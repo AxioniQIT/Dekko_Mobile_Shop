@@ -1,10 +1,4 @@
-@extends('layouts.admin')
-
-@section('content')
-<div class="container mt-4">
-    <h1 class="text-center mb-4">Create Product</h1>
-    <div class="card shadow-sm p-4">
-        <form action="{{ route('admin.products.store') }}" method="POST">
+<form action="{{ route('admin.products.store') }}" method="POST">
             @csrf
             <div class="mb-3">
                 <label for="product_name" class="form-label">Product Name:</label>
@@ -47,6 +41,4 @@
                 <button type="submit" class="btn btn-success px-4">Create Product</button>
             </div>
         </form>
-    </div>
-</div>
-@endsection
+

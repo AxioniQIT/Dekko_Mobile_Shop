@@ -1,10 +1,4 @@
-@extends('layouts.admin')
-
-@section('content')
-    <div class="container my-5">
-        <h1 class="mb-4">Edit Category</h1>
-
-        <form action="{{ route('admin.product.categories.update', $category->category_id) }}" method="POST">
+<form action="{{ route('admin.product.categories.update', $category->category_id) }}" method="POST">
             @csrf
             @method('PUT')
 
@@ -27,5 +21,3 @@
             <button type="submit" class="btn btn-primary">Update Category</button>
             <a href="{{ route('admin.product.categories.view') }}" class="btn btn-secondary">Cancel</a>
         </form>
-    </div>
-@endsection
