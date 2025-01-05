@@ -1,8 +1,4 @@
-@extends('layouts.admin')
-
-@section('content')
-    <h1>Create New Category</h1>
-    <form action="{{ route('admin.product.categories.store') }}" method="POST">
+<form action="{{ route('admin.product.categories.store') }}" method="POST">
         @csrf
         <div>
             <label for="category_name">Category Name:</label>
@@ -13,5 +9,8 @@
             <textarea name="description" id="description"></textarea>
         </div>
         <button type="submit">Save</button>
-    </form>
-@endsection
+</form>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
