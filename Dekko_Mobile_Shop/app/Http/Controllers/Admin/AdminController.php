@@ -20,4 +20,9 @@ class AdminController extends Controller
         return view('admin.dashboard');
     }
 
+    public function viewEmployee()
+    {
+        return view('admin.employee.viewemployee');
+    }
+
 }
