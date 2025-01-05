@@ -129,6 +129,11 @@
     color: white;
   }
 
+  .add-btn{
+    background-color: #002366;
+    color: white;
+  }
+
   /*  -------------------------------------------*/
 
   /* Dark Mode Toggle Button */
