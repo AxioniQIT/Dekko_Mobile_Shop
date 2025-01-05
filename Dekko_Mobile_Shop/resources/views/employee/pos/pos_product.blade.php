@@ -91,7 +91,7 @@
           <tbody>
             <tr>
               <td>Mac Book Air</td>
-              <td>15000</td>
+              <td>1500</td>
               <td>1</td>
               <td>Silver</td>
               <td>500.00</td>

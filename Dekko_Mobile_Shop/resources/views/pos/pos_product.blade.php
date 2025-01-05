@@ -58,7 +58,7 @@
             <td>150000.00</td>
             <td>2</td>
             <td>147000.00</td>
-            <th><button>Add</button></th>
+            <th><button type="button" class="add-btn">Add</button>
           </tr>
         </tbody>
       </table>
@@ -91,7 +91,7 @@
           <tbody>
             <tr>
               <td>Mac Book Air</td>
-              <td>15000</td>
+              <td>150</td>
               <td>1</td>
               <td>Silver</td>
               <td>500.00</td>
