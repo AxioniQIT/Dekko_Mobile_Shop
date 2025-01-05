@@ -102,7 +102,7 @@ Route::middleware('auth')->group(function () {
 
 
 
-     //Admin -> Repairs Routes
+        //Admin -> Repairs Routes
         Route::get('/repairs', [RepairController::class, 'index'])->name('repairs');
         Route::get('/repairs_Management', [RepairController::class, 'repairsmanagement'])->name('repairs.management');
         Route::get('/repairs_add', [RepairController::class, 'addRepair'])->name('repairs.addrepair');
@@ -121,7 +121,7 @@ Route::middleware('auth')->group(function () {
 
 
         //Admin -> Employee Routes
-        Route::get('/employee', [EmployeeController::class, 'viewEmployee'])->name('employees');
+        Route::get('/employee', [AdminController::class, 'viewEmployee'])->name('employees');
 
 
 
@@ -160,17 +160,17 @@ Route::middleware('auth')->group(function () {
         Route::get('/dashboard', [EmployeeController::class, 'index'])->name('dashboard');
 
 
-    //Employee -> Repairs Routes
-     Route::get('/repairs', [EmployeeRepairController::class, 'index'])->name('repairs');
-     Route::get('/repairs_Management', [EmployeeRepairController::class, 'repairsmanagement'])->name('repairs.management');
-     Route::get('/repairs_add', [EmployeeRepairController::class, 'addRepair'])->name('repairs.addrepair');
-     Route::get('/repairUpdates', [EmployeeRepairController::class, 'repairUpdates'])->name('repairs.repairUpdates');
-     Route::get('/posRepair', [EmployeeRepairController::class, 'posRepair'])->name('repairs.posRepair');
+        //Employee -> Repairs Routes
+        Route::get('/repairs', [EmployeeRepairController::class, 'index'])->name('repairs');
+        Route::get('/repairs_Management', [EmployeeRepairController::class, 'repairsmanagement'])->name('repairs.management');
+        Route::get('/repairs_add', [EmployeeRepairController::class, 'addRepair'])->name('repairs.addrepair');
+        Route::get('/repairUpdates', [EmployeeRepairController::class, 'repairUpdates'])->name('repairs.repairUpdates');
+        Route::get('/posRepair', [EmployeeRepairController::class, 'posRepair'])->name('repairs.posRepair');
 
 
 
-    //Employee -> Order History Routes
-    Route::get('/orderhistory', [EmployeeOrderHistoryController::class, 'index'])->name('orderhistory');
+        //Employee -> Order History Routes
+        Route::get('/orderhistory', [EmployeeOrderHistoryController::class, 'index'])->name('orderhistory');
 
     });
 
