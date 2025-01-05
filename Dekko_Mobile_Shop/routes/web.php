@@ -108,6 +108,13 @@ Route::middleware('auth')->group(function () {
         Route::get('/repairs_add', [RepairController::class, 'addRepair'])->name('repairs.addrepair');
         Route::get('/repairUpdates', [RepairController::class, 'repairUpdates'])->name('repairs.repairUpdates');
         Route::get('/posRepair', [RepairController::class, 'posRepair'])->name('repairs.posRepair');
+        Route::get('/pendingrepairs', [RepairController::class, 'pendingRepair'])->name('repairs.pendingrepairs');
+        Route::get('/completedrepairs', [RepairController::class, 'completedRepair'])->name('repairs.completedrepairs');
+        Route::get('/cancledrepairs', [RepairController::class, 'cancelledRepair'])->name('repairs.cancelledrepairs');
+        Route::get('/inprogressrepairs', [RepairController::class, 'inprogressRepair'])->name('repairs.inprogressrepairs');
+
+
+
 
 
 

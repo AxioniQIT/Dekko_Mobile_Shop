@@ -17,6 +17,26 @@ class RepairController extends Controller
         return view('admin.repairs.viewrepairs');
     }
 
+    public function pendingRepair()
+    {
+        return view('admin.repairs.pending_repairs');
+    }
+
+    public function inprogressRepair()
+    {
+        return view('admin.repairs.inprogress_repair');
+    }
+
+    public function completedRepair()
+    {
+        return view('admin.repairs.completed_repair');
+    }
+
+    public function cancelledRepair()
+    {
+        return view('admin.repairs.cancelled_repair');
+    }
+
 
     public function repairsmanagement()
     {

@@ -103,16 +103,17 @@
                         <i class="fas fa-sync-alt me-2 text-warning"></i> Repairs Updates
                     </a>
 
-                    <a href="{{ route('admin.repairs', ['status' => 'in-progress']) }}" class="submenu-link d-flex align-items-center">
+                    <a href="{{ route('admin.repairs.inprogressrepairs')}}" class="submenu-link d-flex align-items-center">
                         <i class="fas fa-spinner me-2 text-info"></i> In Progress
                     </a>
-                    <a href="{{ route('admin.repairs', ['status' => 'pending']) }}" class="submenu-link d-flex align-items-center">
+
+                    <a href="{{ route('admin.repairs.pendingrepairs') }}" class="submenu-link d-flex align-items-center">
                         <i class="fas fa-hourglass-half me-2 text-warning"></i> Pending
                     </a>
-                    <a href="{{ route('admin.repairs', ['status' => 'completed']) }}" class="submenu-link d-flex align-items-center">
+                    <a href="{{ route('admin.repairs.completedrepairs') }}" class="submenu-link d-flex align-items-center">
                         <i class="fas fa-check-circle me-2 text-success"></i> Completed
                     </a>
-                    <a href="{{ route('admin.repairs', ['status' => 'cancelled']) }}" class="submenu-link d-flex align-items-center">
+                    <a href="{{ route('admin.repairs.cancelledrepairs') }}" class="submenu-link d-flex align-items-center">
                         <i class="fas fa-times-circle me-2 text-danger"></i> Cancelled
                     </a>
                 </div>
